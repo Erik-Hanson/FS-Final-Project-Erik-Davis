@@ -4,10 +4,13 @@ import Item from "./Item";
 export default class ItemList extends Component {
     render() {
         return (
-            <div>
-               <h1>To Do Items</h1>
-               <Item />
-            </div>
+            <ul className="list-group my 3">
+                <h2 className="text-center text-light">Your To Do List</h2>
+                <div className="card card-body bg-secondary">
+                    <Item />
+                    <button type="button" className="btn btn-danger btn-block mt-4">Clear Your List</button>
+                </div>
+            </ul>
         )
     }
 }

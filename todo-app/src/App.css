@@ -1,3 +1,4 @@
+/*
 .App {
   text-align: center;
 }
@@ -35,4 +36,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+*/ 
+
+/* Encountered some issues with using vh in the past, this
+   might have to be changed at some point...*/
+
+html {
+  min-height: 100vh;
+}
+
+body {
+  min-height: 100vh;
 }
