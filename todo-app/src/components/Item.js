@@ -1,3 +1,10 @@
+/*
+This class contains the layout for an object. As of right now the values
+are hardcoded but should eventually be switched to populate the items
+using data from a database. This component is called within the ItemList
+component.
+*/
+
 import React, { Component } from 'react'
 
 export default class Item extends Component {

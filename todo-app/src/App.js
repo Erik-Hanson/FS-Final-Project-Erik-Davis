@@ -1,26 +1,27 @@
 import React from 'react';
-import CreateItem from "./components/CreateItem";
-import ItemList from "./components/ItemList";
+//import CreateItem from "./components/CreateItem";
+//import ItemList from "./components/ItemList";
+import Notes from "./components/Notes";
+import Home from "./components/Home";
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap import
-import uuid from "uuid"; // Importing uuid
-import './App.css'; // Import CSS
+//import './App.css'; // Import CSS
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
-    <body className="bg-dark">
-      <h1 className="display-1 text-center text-light">To Do App</h1>
-      <div className="container">
-        <div className="row">
-          <div className="col-10 mx-auto col-md-8 mt-4">
-            <h2 className="text-center text-light">Create To Do Item</h2>
-            <CreateItem />
-            <ItemList />
-          </div>
-        </div>
-      </div>
-      <footer className="font-weight-bold text-center text-light my-4">Created By: Erik Hanson and Davis Giang</footer>
-    </body>
-  );
+    <div>
+      <Router>
+        <Switch>
+          <Route path="/notes">
+            <Notes />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  )
 }
 
 export default App;

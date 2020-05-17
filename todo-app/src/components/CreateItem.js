@@ -1,4 +1,9 @@
-import React, { Component, createContext } from 'react'
+/*
+This class is the component which contains the form to create an to do item.
+It's called within App.js.
+*/
+
+import React, { Component } from 'react'
 import './CreateItem.css';
 
 export default class CreateItem extends Component {
