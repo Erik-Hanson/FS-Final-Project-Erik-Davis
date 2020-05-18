@@ -1,0 +1,7 @@
+/*
+CSS file which is used within the CreateItem component.
+*/
+
+#addItem {
+    height: 45px;
+}
