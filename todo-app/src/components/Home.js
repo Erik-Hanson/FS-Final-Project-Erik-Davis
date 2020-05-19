@@ -9,7 +9,7 @@ async function getQuote() {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "quotes15.p.rapidapi.com",
-            "x-rapidapi-key": "none"
+            "x-rapidapi-key": "05a9e3db6dmshfd21663b037bf61p15838djsnafe1ac4f6bb3"
         }
     });
     if (response.status === 200) {
