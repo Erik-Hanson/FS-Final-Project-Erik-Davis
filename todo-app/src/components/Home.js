@@ -1,6 +1,7 @@
 import React from 'react';
 import { Component } from "react";
 import { Async } from "react-async";
+import { Link } from "react-router-dom"
 import "./Home.css"
 
 async function getQuote() {
@@ -40,7 +41,9 @@ export default class Home extends Component {
                                         </blockquote>
 
                                         <div className="text-center mt-4">
+                                            <Link to="/notes">
                                             <button className="btn btn-primary">Go To Notes</button>
+                                            </Link>
                                         </div>
                                     </body>
                                 )
