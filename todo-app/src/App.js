@@ -13,7 +13,6 @@ import RegisterPage from "./components/SignUp";
 //import PasswordForgetPage from './components/PasswordForget';
 //import HomePage from './components/Home';
 //import AccountPage from './components/Account';
-import TestPage from "./components/Test";
 
 import * as ROUTE from "./components/constants/routes";
 

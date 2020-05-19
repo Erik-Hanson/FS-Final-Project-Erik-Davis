@@ -2,7 +2,6 @@ import React from 'react';
 import { Component } from "react";
 import { Async } from "react-async";
 import { Link } from "react-router-dom"
-import "./Home.css"
 
 async function getQuote() {
     let response = await fetch("https://quotes15.p.rapidapi.com/quotes/random/?language_code=en", {
