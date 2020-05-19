@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 //import LandingPage from './components/Landing';
 import RegisterPage from "./components/SignUp";
 import SignInPage from './components/SignIn';
-//import PasswordForgetPage from './components/PasswordForget';
+import PWForgetPage from './components/PasswordForget';
 //import HomePage from './components/Home';
 //import AccountPage from './components/Account';
 
@@ -24,6 +24,7 @@ function App() {
           <Route path={ROUTE.NOTES} component={Notes}></Route>
           <Route path={ROUTE.REGISTER} component={RegisterPage}></Route>
           <Route path={ROUTE.SIGN_IN} component={SignInPage}></Route>
+          <Route path={ROUTE.PW_FORGET} component={PWForgetPage}></Route>
           <Route path={ROUTE.HOME} component={Home}></Route>
         </Switch>
       </Router>

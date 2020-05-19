@@ -3,6 +3,7 @@ import {withRouter} from 'react-router-dom';
 
 import {RegisterLink} from '../SignUp'; 
 import {withFirebase} from '../Firebase'; 
+import {PWForgetLink} from '../PasswordForget';
 
 import * as ROUTE from '../constants/routes'; 
 
@@ -10,6 +11,7 @@ const SignInPage = () => (
     <div>
         <h1>Sign In</h1>
         <SignInForm/>
+        <PWForgetLink/>
         <RegisterLink/>
     </div>
 )
@@ -52,8 +54,8 @@ class SignInFormBase extends Component {
 
         return(
             <form onSubmit={this.onSubmit}>
-                <input type="text" name="email" placeholder="Email Address" onChange={this.onChange}/>
-                <input type="password" name="password" placeholder="Password" onChange={this.onChange}/>
+                <input type="text" name="email" value={email} placeholder="Email Address" onChange={this.onChange}/>
+                <input type="password" name="password" value={password} placeholder="Password" onChange={this.onChange}/>
                 <button disabled={isInvalid} type="submit">
                     Sign In
                 </button>

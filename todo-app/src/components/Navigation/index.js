@@ -1,11 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom'; 
 
+import SignOutButton from '../SignOut'; 
+import * as ROUTES from '../constants/routes'; 
+
 const Navigation = () => (
     <header>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="#">
-        Navigation
+        To-Do
       </a>
       <button
         className="navbar-toggler"
@@ -24,7 +27,7 @@ const Navigation = () => (
       >
         <div className="navbar-nav">
           <a className="nav-item nav-link active" href="#">
-            Notes <span className="sr-only">(current)</span>
+            Notes <span className="sr-only"></span>
           </a>
           <a className="nav-item nav-link" href="#">
             Trashed Notes
