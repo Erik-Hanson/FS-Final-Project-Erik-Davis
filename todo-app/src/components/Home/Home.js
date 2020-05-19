@@ -20,7 +20,13 @@ async function getQuote() {
     throw new Error(response.status);
 }
 
-export default class Home extends Component {
+const HomePage = () => (
+    <div>
+        <Home/>
+    </div>
+);
+
+class Home extends Component {
     render() {
         return (
             <div>
@@ -55,3 +61,5 @@ export default class Home extends Component {
         )
     }
 }
+
+export default Home;
