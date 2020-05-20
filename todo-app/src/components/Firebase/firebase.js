@@ -2,8 +2,6 @@ import app from "firebase/app";
 import "firebase/auth";
 import 'firebase/firestore';
 
-const firebase = require("firebase");
-
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -20,7 +18,7 @@ class Firebase {
     app.initializeApp(config);
 
     this.auth = app.auth();
-
+    this.firestore = app.firestore();
   }
 
   // *** Auth API ***
@@ -37,9 +35,7 @@ class Firebase {
   executePWUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);
 
-    // *** Firestore API *** 
-
 }
 
-var db = firebase.firestore();
+
 export default Firebase;

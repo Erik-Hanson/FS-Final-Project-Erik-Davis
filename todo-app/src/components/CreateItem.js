@@ -10,7 +10,7 @@ export default class CreateItem extends Component {
     render() {
         return (
             <div className="card card-body my-3 bg-secondary">
-                <form>
+                <form onSubmit="addItem()">
                     <div className="input-group">
                         <div className="input-group-prepend d-inline">
                             <div className="input-group-text bg-success">
