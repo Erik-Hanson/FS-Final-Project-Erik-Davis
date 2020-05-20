@@ -56,6 +56,7 @@ class RegisterFormBase extends Component {
         <label>Desired username</label>
         <input
           name="username"
+          value={username}
           type="text"
           onChange={this.onChange}
           placeholder="Username123"
@@ -63,18 +64,21 @@ class RegisterFormBase extends Component {
         <input
           type="text"
           name="email"
+          value={email}
           onChange={this.onChange}
           placeholder="Example@exmaple.com"
         />
         <input
           type="password"
           name="password"
+          value={password}
           onChange={this.onChange}
           placeholder="Password"
         />
         <input
           type="password"
           name="password2"
+          value={password2}
           onChange={this.onChange}
           placeholder="Confirm password"
         />
@@ -89,7 +93,7 @@ class RegisterFormBase extends Component {
 
 const RegisterLink = () => (
   <p>
-    Register to Create a To-do App <Link to={ROUTE.REGISTER}>Register</Link>
+    Register to Create a To-do List <Link to={ROUTE.REGISTER}>Register</Link>
   </p>
 );
 

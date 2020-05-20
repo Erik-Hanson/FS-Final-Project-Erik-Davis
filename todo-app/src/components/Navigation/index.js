@@ -10,7 +10,7 @@ const NavigationAuth = () => (
   <header>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="#">
-        Navigation
+        To-Do
       </a>
       <button
         className="navbar-toggler"
@@ -29,7 +29,7 @@ const NavigationAuth = () => (
       >
         <div className="navbar-nav">
           <a className="nav-item nav-link active" href="#">
-            Notes <span className="sr-only">(current)</span>
+            Notes <span className="sr-only"></span>
           </a>
           <a className="nav-item nav-link" href="#">
             Trashed Notes

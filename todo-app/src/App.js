@@ -10,8 +10,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navigation from './components/Navigation/index';
 //import LandingPage from './components/Landing';
 import RegisterPage from "./components/SignUp";
-//import SignInPage from './components/SignIn';
-//import PasswordForgetPage from './components/PasswordForget';
+import SignInPage from './components/SignIn';
+import PWForgetPage from './components/PasswordForget';
 //import HomePage from './components/Home';
 //import AccountPage from './components/Account';
 
