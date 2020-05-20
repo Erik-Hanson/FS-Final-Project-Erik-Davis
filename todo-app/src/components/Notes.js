@@ -11,8 +11,7 @@ class Notes extends Component {
       // Below lies the backbone for the notes page, this should eventually be made into
       // its own component as we are probably going to use this file for routing since
       // we will have multiple pages
-          <body className="bg-dark">
-                          <Navigation/>
+        <body className="bg-dark">
         <h1 className="display-1 text-center text-light">To Do App</h1>
             <div className="container">
               <div className="row">
