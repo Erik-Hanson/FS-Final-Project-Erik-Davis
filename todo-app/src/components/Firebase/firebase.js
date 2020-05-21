@@ -1,6 +1,7 @@
-import app from "firebase/app";
+import firebase from "firebase/app";
 import "firebase/auth";
-import 'firebase/firestore';
+//import "firebase/database";
+require("firebase/firestore");
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -13,12 +14,31 @@ const config = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
+// const fire = firebase.initializeApp(config);
+// firebase.firestore();
+// firebase.auth();
+
+// export const executeCreateUserWithEmailAndPassword = (email, password) =>
+//   fire.auth.createUserWithEmailAndPassword(email, password);
+
+// export const executeSignInWithEmailAndPassword = (email, password) =>
+//   fire.auth.signInWithEmailAndPassword(email, password);
+
+// export const executeSignOut = () => fire.auth.signOut();
+
+// export const executerPWUpdate = (password) =>
+//   fire.auth.currentUser.updatePassword(password);
+
+// export const executePWUpdate = (password) => fire.auth.updatePassword(password);
+
+// export default firebase;
+
 class Firebase {
   constructor() {
-    app.initializeApp(config);
-
-    this.auth = app.auth();
-    this.firestore = app.firestore();
+    firebase.initializeApp(config);
+    //this.db = app.database();
+    this.auth = firebase.auth();
+    this.db = firebase.firestore();
   }
 
   // *** Auth API ***
@@ -35,7 +55,25 @@ class Firebase {
   executePWUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);
 
-}
+  // getAllNotes = (uid) => this.db.collection(uid).doc("Notes").get();
 
+  // createNote = (uid) => this.db.collection(uid).doc("notes");
+
+  // getCategoryNotes = (uid, category) =>
+  //   this.db
+  //     .collection(uid)
+  //     .doc("Notes")
+  //     .collection("all")
+  //     .get()
+  //     .where("category" === category);
+
+  // // add user
+  // addUserToFirestore = (uid) =>
+  //   this.db
+  //     .collection(uid)
+  //     .doc("Notes")
+  //     .collection("all")
+  //     .add({ data: "test" });
+}
 
 export default Firebase;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import { withFirebase } from '../Firebase';
+import { withFirebase } from "../Firebase";
 import * as ROUTE from "../constants/routes";
 
 const INITIAL_STATE = {
@@ -15,7 +15,7 @@ const INITIAL_STATE = {
 const RegisterPage = () => (
   <div>
     <h1>Register</h1>
-    <RegisterForm/>
+    <RegisterForm />
   </div>
 );
 
@@ -26,12 +26,13 @@ class RegisterFormBase extends Component {
   }
 
   onSubmit = (event) => {
-    const {username, email, password } = this.state;
+    const { username, email, password } = this.state;
     this.props.firebase
       .executeCreateUserWithEmailAndPassword(email, password)
+      .then(this.props.addUserToFireStore(this.props.auth().currentUser))
       .then((authUser) => {
         this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTE.HOME)
+        this.props.history.push(ROUTE.NOTES);
       })
       .catch((error) => {
         this.setState({ error });
