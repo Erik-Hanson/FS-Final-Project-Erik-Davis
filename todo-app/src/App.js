@@ -44,8 +44,10 @@ class App extends Component {
         <Router>
           <Navigation authUser={this.state.authUser} />
           <Switch>
-            <Route path={ROUTE.NOTES} component={Notes}></Route>
+            <Route path={ROUTE.NOTES}><Notes authUser={this.state.authUser} /></Route>
             <Route path={ROUTE.REGISTER} component={RegisterPage}></Route>
+            <Route path={ROUTE.SIGN_IN} component={SignInPage}></Route>
+            <Route path={ROUTE.PW_FORGET} component={PWForgetPage}></Route>
             <Route path={ROUTE.HOME} component={Home}></Route>
           </Switch>
         </Router>
