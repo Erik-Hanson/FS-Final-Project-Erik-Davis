@@ -24,8 +24,9 @@ const NavigationAuth = () => (
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <a className="nav-item nav-link active"><Link to={ROUTE.NOTES}>Notes</Link></a>
+          <a className="nav-item nav-link"><Link to={ROUTE.NOTES}>Notes</Link></a>
           <a className="nav-item nav-link"><Link to={ROUTE.TRASH}>Trashed Notes</Link></a>
+          <a className="nav-item nav-link"><SignOutButton /></a>
         </div>
       </div>
     </nav>
