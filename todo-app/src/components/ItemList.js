@@ -5,19 +5,42 @@ The class also contains a call to the Item component as it is composed of the
 item components.
 */
 
-import React, { Component } from 'react'
+import React, { useEffect, useState, useCallback } from "react";
 import Item from "./Item";
+import { withRouter } from "react-router-dom";
+import { withFirebase } from "./Firebase";
 
-export default class ItemList extends Component {
-    render() {
-        return (
-            <ul className="list-group my 3">
-                <h2 className="text-center text-light">Your To Do List</h2>
-                <div className="card card-body bg-secondary">
-                    <Item />
-                    <button type="button" className="btn btn-danger btn-block mt-4">Clear Your List</button>
-                </div>
-            </ul>
-        )
-    }
-}
+const ItemList = () => {
+  return <ItemListWrapped />;
+};
+
+const ItemListBase = (props) => {
+  const [notes, setNotes] = useState([]);
+
+  const fetch = useCallback(async () => {
+    const uid = await props.firebase.auth.currentUser.uid;
+    await props.firebase.fetchAllNotes(uid, setNotes);
+  }, [props.firebase]);
+
+  useEffect(() => {
+    fetch();
+  }, [fetch]);
+
+  return (
+    <ul className="list-group my 3">
+      <h2 className="text-center text-light">Your List</h2>
+      <div className="card card-body bg-secondary">
+        <Item allNotes={notes} />
+        <button type="button" className="btn btn-danger btn-block mt-4">
+          Clear Your List
+        </button>
+      </div>
+    </ul>
+  );
+};
+
+const ItemListWrapped = withRouter(withFirebase(ItemListBase));
+
+export { ItemListWrapped };
+
+export default ItemList;

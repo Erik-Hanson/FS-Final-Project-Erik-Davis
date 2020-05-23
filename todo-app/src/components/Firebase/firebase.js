@@ -1,6 +1,7 @@
-import app from "firebase/app";
+import firebase from "firebase/app";
 import "firebase/auth";
-import 'firebase/database';
+//import "firebase/database";
+require("firebase/firestore");
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -13,12 +14,31 @@ const config = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
+// const fire = firebase.initializeApp(config);
+// firebase.firestore();
+// firebase.auth();
+
+// export const executeCreateUserWithEmailAndPassword = (email, password) =>
+//   fire.auth.createUserWithEmailAndPassword(email, password);
+
+// export const executeSignInWithEmailAndPassword = (email, password) =>
+//   fire.auth.signInWithEmailAndPassword(email, password);
+
+// export const executeSignOut = () => fire.auth.signOut();
+
+// export const executerPWUpdate = (password) =>
+//   fire.auth.currentUser.updatePassword(password);
+
+// export const executePWUpdate = (password) => fire.auth.updatePassword(password);
+
+// export default firebase;
+
 class Firebase {
   constructor() {
-    app.initializeApp(config);
-
-    this.auth = app.auth();
-    this.db = app.database();
+    firebase.initializeApp(config);
+    //this.db = app.database();
+    this.auth = firebase.auth();
+    this.db = firebase.firestore();
   }
 
   // *** Auth API ***
@@ -34,6 +54,65 @@ class Firebase {
 
   executePWUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);
+
+  // getAllNotes = (uid) => this.db.collection(uid).doc("Notes").get();
+
+  // createNote = (uid) => this.db.collection(uid).doc("notes");
+
+  // getCategoryNotes = (uid, category) =>
+  //   this.db
+  //     .collection(uid)
+  //     .doc("Notes")
+  //     .collection("all")
+  //     .get()
+  //     .where("category" === category);
+
+  // add user
+  addUserToFirestore = (uid) => {
+    const newNote = {
+      Text: "This is your first Note",
+      Date: Date.now(),
+      Category: "",
+      Title: "First Note",
+    };
+    //create first note
+    this.db.collection(uid).doc("Notes").collection("all").add(newNote);
+  };
+
+  fetchAllNotes = (uid, dispatch) => {
+    const newNotes = [];
+
+    this.db
+      .collection(uid)
+      .doc("Notes")
+      .collection("all")
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          //console.log(doc);
+          const note = doc.data();
+          const noteWithId = {
+            id: doc.id,
+            ...note,
+          };
+          newNotes.push(noteWithId);
+        });
+
+        dispatch(newNotes);
+      });
+
+    return newNotes;
+  };
+
+  //add a note
+  // addNote = (uid, text, category, title, dispatch) => {
+  //   const newNote = {
+  //     Text: text,
+  //     Date: Date.now(),
+  //     Category: category,
+  //     Title: title,
+  //   }
+  // }
 }
 
 export default Firebase;
