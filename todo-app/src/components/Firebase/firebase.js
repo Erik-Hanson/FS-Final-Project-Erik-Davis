@@ -98,11 +98,21 @@ class Firebase {
           newNotes.push(noteWithId);
         });
 
-        dispatch(newNotes)
+        dispatch(newNotes);
       });
 
     return newNotes;
   };
+
+  //add a note
+  // addNote = (uid, text, category, title, dispatch) => {
+  //   const newNote = {
+  //     Text: text,
+  //     Date: Date.now(),
+  //     Category: category,
+  //     Title: title,
+  //   }
+  // }
 }
 
 export default Firebase;

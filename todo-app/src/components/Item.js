@@ -5,7 +5,7 @@ using data from a database. This component is called within the ItemList
 component.
 */
 
-import React, { Component } from "react";
+import React from "react";
 
 // const INITIAL_STATE = {
 //   notes: "",

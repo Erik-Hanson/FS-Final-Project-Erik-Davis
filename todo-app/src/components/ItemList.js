@@ -5,23 +5,22 @@ The class also contains a call to the Item component as it is composed of the
 item components.
 */
 
-import React, { Component, useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Item from "./Item";
 import { withRouter } from "react-router-dom";
-import firebase, { withFirebase } from "./Firebase";
+import { withFirebase } from "./Firebase";
 
 const ItemList = () => {
   return <ItemListWrapped />;
 };
 
 const ItemListBase = (props) => {
-  const [notes, setNotes] = React.useState([]);
+  const [notes, setNotes] = useState([]);
 
-  const fetch = React.useCallback(async () => {
+  const fetch = useCallback(async () => {
     const uid = await props.firebase.auth.currentUser.uid;
     await props.firebase.fetchAllNotes(uid, setNotes);
-  }, []);
-
+  }, [props.firebase]);
 
   useEffect(() => {
     fetch();
