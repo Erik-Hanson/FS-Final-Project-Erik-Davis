@@ -79,7 +79,7 @@ class Firebase {
     this.db.collection(uid).doc("Notes").collection("all").add(newNote);
   };
 
-  fetchAllNotes = (uid) => {
+  fetchAllNotes = (uid, dispatch) => {
     const newNotes = [];
 
     this.db
@@ -97,6 +97,8 @@ class Firebase {
           };
           newNotes.push(noteWithId);
         });
+
+        dispatch(newNotes)
       });
 
     return newNotes;
