@@ -26,6 +26,7 @@ const NavigationAuth = () => (
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
+
           <a className="nav-item nav-link active">
             <Link to={ROUTE.NOTES}>Notes</Link>
           </a>
@@ -35,6 +36,7 @@ const NavigationAuth = () => (
           <a className="nav-item nav-link">
             <SignOutButton />
           </a>
+
         </div>
       </div>
     </nav>

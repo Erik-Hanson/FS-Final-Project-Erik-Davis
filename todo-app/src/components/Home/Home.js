@@ -41,7 +41,7 @@ class Home extends Component {
                                 return (
                                     <body className="bg-dark">
                                         <blockquote class="blockquote">
-                                            <p className="display-4 text-light pt-4">{data.content}</p>
+                                            <p className="display-4 text-light pt-4 pl-2">{data.content}</p>
                                             <footer className="blockquote-footer text-light pl-4">{data.originator.name}</footer>
                                         </blockquote>
 
