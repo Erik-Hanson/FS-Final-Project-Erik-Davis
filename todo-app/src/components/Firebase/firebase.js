@@ -67,13 +67,40 @@ class Firebase {
   //     .get()
   //     .where("category" === category);
 
-  // // add user
-  // addUserToFirestore = (uid) =>
-  //   this.db
-  //     .collection(uid)
-  //     .doc("Notes")
-  //     .collection("all")
-  //     .add({ data: "test" });
+  // add user
+  addUserToFirestore = (uid) => {
+    const newNote = {
+      Text: "This is your first Note",
+      Date: Date.now(),
+      Category: "",
+      Title: "First Note",
+    };
+    //create first note
+    this.db.collection(uid).doc("Notes").collection("all").add(newNote);
+  };
+
+  fetchAllNotes = (uid) => {
+    const newNotes = [];
+
+    this.db
+      .collection(uid)
+      .doc("Notes")
+      .collection("all")
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          //console.log(doc);
+          const note = doc.data();
+          const noteWithId = {
+            id: doc.id,
+            ...note,
+          };
+          newNotes.push(noteWithId);
+        });
+      });
+
+    return newNotes;
+  };
 }
 
 export default Firebase;

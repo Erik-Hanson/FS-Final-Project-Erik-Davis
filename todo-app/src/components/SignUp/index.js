@@ -29,8 +29,12 @@ class RegisterFormBase extends Component {
     const { username, email, password } = this.state;
     this.props.firebase
       .executeCreateUserWithEmailAndPassword(email, password)
-      .then(this.props.addUserToFireStore(this.props.auth().currentUser))
-      .then((authUser) => {
+      .then(() => {
+        this.props.firebase.addUserToFirestore(
+          this.props.firebase.auth.currentUser.uid
+        );
+      })
+      .then(() => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTE.NOTES);
       })

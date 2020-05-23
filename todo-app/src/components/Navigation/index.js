@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import React from "react";
+import { Link, Route } from "react-router-dom";
 import SignOutButton from "../SignOut/index";
 import * as ROUTE from "../constants/routes";
 
@@ -10,7 +10,9 @@ const Navigation = ({ authUser }) => (
 const NavigationAuth = () => (
   <header>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">To-Do</a>
+      <a className="navbar-brand" href="#">
+        To-Do
+      </a>
       <button
         className="navbar-toggler"
         type="button"
@@ -24,8 +26,15 @@ const NavigationAuth = () => (
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <a className="nav-item nav-link active"><Link to={ROUTE.NOTES}>Notes</Link></a>
-          <a className="nav-item nav-link"><Link to={ROUTE.TRASH}>Trashed Notes</Link></a>
+          <a className="nav-item nav-link active">
+            <Link to={ROUTE.NOTES}>Notes</Link>
+          </a>
+          <a className="nav-item nav-link">
+            <Link to={ROUTE.TRASH}>Trashed Notes</Link>
+          </a>
+          <a className="nav-item nav-link">
+            <SignOutButton />
+          </a>
         </div>
       </div>
     </nav>
@@ -51,14 +60,16 @@ const NavigationNonAuth = () => (
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav" id="mainNavBar">
-          <a className="nav-item nav-link"><Link to={ROUTE.SIGN_IN}>Sign In</Link></a>
-          <a className="nav-item nav-link"><Link to={ROUTE.HOME}>Home</Link></a>
+          <a className="nav-item nav-link">
+            <Link to={ROUTE.SIGN_IN}>Sign In</Link>
+          </a>
+          <a className="nav-item nav-link">
+            <Link to={ROUTE.HOME}>Home</Link>
+          </a>
         </div>
       </div>
     </nav>
   </header>
 );
-
-
 
 export default Navigation;
