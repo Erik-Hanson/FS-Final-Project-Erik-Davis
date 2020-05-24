@@ -97,7 +97,7 @@ class RegisterFormBase extends Component {
 }
 
 const RegisterLink = () => (
-  <p>
+  <p className="text-light text-center">
     Register to Create a To-do List <Link to={ROUTE.REGISTER}>Register</Link>
   </p>
 );
