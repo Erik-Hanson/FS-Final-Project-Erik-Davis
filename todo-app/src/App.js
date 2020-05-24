@@ -18,9 +18,9 @@ import PWForgetPage from './components/PasswordForget';
 import * as ROUTE from "./components/constants/routes";
 
 class App extends Component {
-    constructor(props) {
+  constructor(props) {
     super(props);
- 
+
     this.state = {
       authUser: null,
     };
@@ -28,9 +28,9 @@ class App extends Component {
 
   componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged(
-    authUser => {
-      authUser ? this.setState({ authUser }) : this.setState({ authUser: null });
-    },
+      authUser => {
+        authUser ? this.setState({ authUser }) : this.setState({ authUser: null });
+      },
     );
   }
 
