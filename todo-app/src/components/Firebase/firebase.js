@@ -115,20 +115,32 @@ class Firebase {
     };
     console.log("this is new note in firebase", note);
     //console.log(this.auth.currentUser.uid);
-    console.log(typeof title, title);
-    console.log(typeof text, text);
-    console.log(typeof category, category);
-    console.log(typeof date, date);
+    // console.log(typeof title, title);
+    // console.log(typeof text, text);
+    // console.log(typeof category, category);
+    //console.log(typeof date, date);
     const uid = this.auth.currentUser.uid;
-    this.db
-      .collection(uid)
-      .doc("Notes")
-      .collection("all")
-      .add(note)
-      .then(() => console.log("doc written"))
-      .catch((error) => console.log("error ", error));
-    //this.db.collection(uid).doc("Notes").collection("all").update(note);
-    console.log("done");
+    try {
+      this.db
+        .collection(uid)
+        .doc("Notes")
+        .collection("all")
+        .get()
+        .then(() => {
+          this.db
+            .collection(uid)
+            .doc("Notes")
+            .collection("all")
+            .add(note)
+            .then(() => console.log("doc written"))
+            .catch((error) => console.log("error ", error));
+        });
+    } catch (e) {
+      console.log("this is e ", e);
+    }
+
+    //this.db.collection(uid).doc("Notes").collection("all").add(note);
+    //console.log("done");
   };
 }
 

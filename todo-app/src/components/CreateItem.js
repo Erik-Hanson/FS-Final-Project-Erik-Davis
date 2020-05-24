@@ -38,7 +38,7 @@ const CreateItemBase = (props) => {
     setCategory(newCategory);
   };
 
-  const submitNote = () => {
+  const submitNote = (event) => {
     // const newNote = {
     //   Title: noteTitle,
     //   Text: noteText,
@@ -46,13 +46,14 @@ const CreateItemBase = (props) => {
     //   Date: date,
     // };
     console.log("this is new note");
+    event.preventDefault();
     // props.firebase.addNote(newNote, setNote);
     props.firebase.addNote(noteTitle, noteText, category, date);
   };
 
   return (
     <div className="card card-body my-3 bg-secondary">
-      <form onSubmit="">
+      <form>
         <div className="input-group">
           <div className="input-group-prepend d-inline">
             <div className="input-group-text">
@@ -71,7 +72,11 @@ const CreateItemBase = (props) => {
         <div className="input-group">
           <div className="input-group-prepend d-inline">
             <div className="input-group-text bg-success">
-              <button onClick={submitNote} type="submit" className="btn btn-sm">
+              <button
+                onClick={(e) => submitNote(e)}
+                type="submit"
+                className="btn btn-sm"
+              >
                 <i className="fa fa-plus-circle"></i>
               </button>
             </div>
