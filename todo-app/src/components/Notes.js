@@ -1,5 +1,5 @@
 import React from "react";
-import CreateItem from "./CreateItem";
+
 import ItemList from "./ItemList";
 import "../App.css"; // Import CSS
 //import { FirebaseContext, withFirebase } from "./Firebase";
@@ -19,7 +19,6 @@ const NotesAuth = () => (
       <div className="row">
         <div className="col-10 mx-auto col-md-8 mt-4">
           <h2 className="text-center text-light">Create To Do Item</h2>
-          <CreateItem />
           <ItemList />
         </div>
       </div>

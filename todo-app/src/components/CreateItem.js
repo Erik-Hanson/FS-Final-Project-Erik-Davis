@@ -11,11 +11,11 @@ import { withFirebase } from "./Firebase";
 import ItemList from "./ItemList";
 import DatePicker from "react-date-picker";
 
-const CreateItem = () => {
-  return <CreateItemWrapped />;
-};
+// const CreateItem = (props) => {
+//   return <CreateItemWrapped props={props} />;
+// };
 
-const CreateItemBase = (props) => {
+const CreateItem = (props) => {
   //const [note, setNote] = useState();
   const [noteText, setNoteText] = useState("");
   const [noteTitle, setNoteTitle] = useState("");
@@ -41,6 +41,7 @@ const CreateItemBase = (props) => {
   const submitNote = (event) => {
     event.preventDefault();
     props.firebase.addNote(noteTitle, noteText, category, date);
+    props.setUpdate(true);
   };
 
   return (
@@ -110,8 +111,8 @@ const CreateItemBase = (props) => {
   );
 };
 
-const CreateItemWrapped = withRouter(withFirebase(CreateItemBase));
+// const CreateItemWrapped = withRouter(withFirebase(CreateItemBase));
 
-export { CreateItemWrapped };
+//export { CreateItemWrapped };
 
 export default CreateItem;
