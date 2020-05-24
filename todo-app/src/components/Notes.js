@@ -47,5 +47,4 @@ const NotesNonAuth = () => (
   </body>
 );
 
-
 export default Notes;

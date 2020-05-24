@@ -105,14 +105,31 @@ class Firebase {
   };
 
   //add a note
-  // addNote = (uid, text, category, title, dispatch) => {
-  //   const newNote = {
-  //     Text: text,
-  //     Date: Date.now(),
-  //     Category: category,
-  //     Title: title,
-  //   }
-  // }
+  addNote = (title, text, category, date) => {
+    //dispatch(note);
+    const note = {
+      Text: text,
+      Title: title,
+      Category: category,
+      //Date: date,
+    };
+    console.log("this is new note in firebase", note);
+    //console.log(this.auth.currentUser.uid);
+    console.log(typeof title, title);
+    console.log(typeof text, text);
+    console.log(typeof category, category);
+    console.log(typeof date, date);
+    const uid = this.auth.currentUser.uid;
+    this.db
+      .collection(uid)
+      .doc("Notes")
+      .collection("all")
+      .add(note)
+      .then(() => console.log("doc written"))
+      .catch((error) => console.log("error ", error));
+    //this.db.collection(uid).doc("Notes").collection("all").update(note);
+    console.log("done");
+  };
 }
 
 export default Firebase;
