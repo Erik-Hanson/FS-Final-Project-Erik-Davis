@@ -89,7 +89,6 @@ class Firebase {
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-          //console.log(doc);
           const note = doc.data();
           const noteWithId = {
             id: doc.id,
@@ -105,14 +104,20 @@ class Firebase {
   };
 
   //add a note
-  // addNote = (uid, text, category, title, dispatch) => {
-  //   const newNote = {
-  //     Text: text,
-  //     Date: Date.now(),
-  //     Category: category,
-  //     Title: title,
-  //   }
-  // }
+  addNote = (title, text, category, date) => {
+    const note = {
+      Text: text,
+      Title: title,
+      Category: category,
+      Date: date,
+    };
+    const uid = this.auth.currentUser.uid;
+    try {
+      this.db.collection(uid).doc("Notes").collection("all").add(note);
+    } catch (e) {
+      console.log("this is e ", e);
+    }
+  };
 }
 
 export default Firebase;
