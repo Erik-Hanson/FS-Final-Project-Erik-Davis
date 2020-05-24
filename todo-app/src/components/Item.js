@@ -29,6 +29,7 @@ const Item = (props) => {
     //fetch();
     //return <Item allNotes={notes} firebase={props.firebase} />
     //return ItemList();
+    console.log("testing");
   }, [update])
 
   return props.allNotes.map((note) => {
