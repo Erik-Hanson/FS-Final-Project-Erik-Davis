@@ -104,6 +104,27 @@ class Firebase {
     return newNotes;
   };
 
+  moveNoteToTrash = (uid, note) => {
+    const newNote = {
+      Text: note.Text,
+      Date: note.Date,
+      Category: note.Category,
+      Title: note.Title,
+    };
+
+    this.db.collection(uid).doc("Notes").collection("trash").add(newNote);
+  }
+
+  deleteNoteFromNotes = (uid, noteId) => {
+    this.db.collection(uid).doc("Notes").collection("all").doc(noteId).delete();
+  }
+
+  deleteNote = async (uid, noteId, note, dispatch) => {
+    this.moveNoteToTrash(uid, note);
+    await this.deleteNoteFromNotes(uid, noteId);
+    dispatch(true);
+  }
+
   //add a note
   // addNote = (uid, text, category, title, dispatch) => {
   //   const newNote = {

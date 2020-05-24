@@ -16,6 +16,7 @@ const ItemList = () => {
 
 const ItemListBase = (props) => {
   const [notes, setNotes] = useState([]);
+  //const [deleted, setDeleted] = useState(false);
 
   const fetch = useCallback(async () => {
     const uid = await props.firebase.auth.currentUser.uid;
@@ -30,7 +31,7 @@ const ItemListBase = (props) => {
     <ul className="list-group my 3">
       <h2 className="text-center text-light">Your List</h2>
       <div className="card card-body bg-secondary">
-        <Item allNotes={notes} />
+        <Item allNotes={notes} firebase={props.firebase} />
         <button type="button" className="btn btn-danger btn-block mt-4">
           Clear Your List
         </button>
