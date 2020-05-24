@@ -106,7 +106,7 @@ class Firebase {
   moveNoteToTrash = (uid, note) => {
     const newNote = {
       Text: note.Text,
-      //Date: note.Date,
+      Date: note.Date,
       Category: note.Category,
       Title: note.Title,
     };
