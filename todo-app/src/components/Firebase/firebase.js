@@ -124,12 +124,21 @@ class Firebase {
     await this.deleteNoteFromNotes(uid, noteId);
   };
 
+  deletePermanent = async (uid, noteId, dispatch) => {
+    await this.db.collection(uid).doc("Notes").collection("trash").doc(noteId).delete();
+    dispatch(true);
+  }
+
   deleteAllNotes = (notes, dispatch) => {
-    console.log("alksjdlas");
     notes.map((note) => {
-      console.log(note);
       this.deleteNote(this.auth.currentUser.uid, note.id, note)
       dispatch(true);
+    })
+  }
+
+  deleteAllTrash = (notes, dispatch) => {
+    notes.map((note) => {
+      this.deletePermanent(this.auth.currentUser.uid, note.id, dispatch)
     })
   }
 
