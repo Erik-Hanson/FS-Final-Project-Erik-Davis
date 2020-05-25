@@ -55,7 +55,7 @@ class SignInFormBase extends Component {
         <div className="row">
           <div className="col-10 mx-auto col-md-8 mt-4">
             <div className="card card-body my-4">
-              <h2 className="h2 text-center">Log In</h2>
+              <h1 className="h1 text-center">Log In</h1>
               <form onSubmit={this.onSubmit}>
                 <input
                   className="input-group mb-4 form-control"
