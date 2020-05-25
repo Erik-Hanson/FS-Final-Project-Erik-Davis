@@ -81,7 +81,6 @@ class Firebase {
 
   fetchAllNotes = (uid, dispatch) => {
     const newNotes = [];
-
     this.db
       .collection(uid)
       .doc("Notes")
@@ -98,6 +97,8 @@ class Firebase {
         });
 
         dispatch(newNotes);
+        // console.log(newNotes);
+        // console.log("hi");
       });
 
     return newNotes;
@@ -146,6 +147,37 @@ class Firebase {
     } catch (e) {
       console.log("this is e ", e);
     }
+  };
+
+  //dispatch = setNotes
+  fetchTrash = (dispatch) => {
+    const newNotes = [];
+    const uid = this.auth.currentUser.uid;
+
+    this.db
+      .collection(uid)
+      .doc("Notes")
+      .collection("trash")
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          const note = doc.data();
+
+          const noteWithId = {
+            id: doc.id,
+            ...note,
+          };
+
+          //console.log(noteWithId);
+          newNotes.push(noteWithId);
+          //console.log(newNotes);
+        });
+
+        dispatch(newNotes);
+        console.log(newNotes, "newNote");
+        console.log("hi");
+      });
+    return newNotes;
   };
 }
 
