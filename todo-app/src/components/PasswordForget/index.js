@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
- 
-import {withFirebase} from '../Firebase';
+import "./main.css";
+import { withFirebase } from '../Firebase';
 import * as ROUTE from '../constants/routes';
- 
+
 const PWForgetPage = () => (
-  <div>
-    <h1>Forgot Password</h1>
+  <div className="bg-dark" id="forgotpsswdPage">
     <PWForgetForm />
   </div>
 );
- 
+
 const INITIAL_STATE = {
   email: '',
   error: null,
 };
- 
+
 class PWForgetFormBase extends Component {
   constructor(props) {
     super(props);
- 
+
     this.state = { ...INITIAL_STATE };
   }
- 
+
   onSubmit = event => {
     const { email } = this.state;
- 
+
     this.props.firebase
       .ExecutePWReset(email)
       .then(() => {
@@ -34,46 +33,58 @@ class PWForgetFormBase extends Component {
       .catch(error => {
         this.setState({ error });
       });
- 
+
     event.preventDefault();
   };
- 
+
   onChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
- 
+
   render() {
     const { email, error } = this.state;
- 
+
     const isInvalid = email === '';
- 
+
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={this.state.email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <button disabled={isInvalid} type="submit">
-          Reset My Password
-        </button>
- 
-        {error && <p>{error.message}</p>}
-      </form>
+      <div className="container">
+        <div className="row">
+          <div className="col-10 mx-auto col-md-8 mt-4">
+            <div className="card card-body my-4">
+              <h1 className="h1 text-center">Forgot Password</h1>
+              <form onSubmit={this.onSubmit}>
+                <label>Enter Email Address:</label>
+                <input
+                  className="input-group mb-4 form-control"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                  type="text"
+                  placeholder="Email Address"
+                />
+                <button className="btn btn-success btn-block"
+                  disabled={isInvalid}
+                  type="submit">
+                  Reset My Password
+                </button>
+                {error && <p>{error.message}</p>}
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
- 
+
 const PWForgetLink = () => (
   <p>
     <Link to={ROUTE.PW_FORGET}>Forgot Password?</Link>
   </p>
 );
- 
+
 export default PWForgetPage;
- 
+
 const PWForgetForm = withFirebase(PWForgetFormBase);
- 
+
 export { PWForgetForm, PWForgetLink };

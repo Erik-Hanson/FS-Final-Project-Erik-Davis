@@ -107,7 +107,7 @@ class Firebase {
   moveNoteToTrash = (uid, note) => {
     const newNote = {
       Text: note.Text,
-      //Date: note.Date,
+      Date: note.Date,
       Category: note.Category,
       Title: note.Title,
     };
@@ -122,8 +122,16 @@ class Firebase {
   deleteNote = async (uid, noteId, note) => {
     this.moveNoteToTrash(uid, note);
     await this.deleteNoteFromNotes(uid, noteId);
-    //dispatch(true);
   };
+
+  deleteAllNotes = (notes, dispatch) => {
+    console.log("alksjdlas");
+    notes.map((note) => {
+      console.log(note);
+      this.deleteNote(this.auth.currentUser.uid, note.id, note)
+      dispatch(true);
+    })
+  }
 
   //add a note
   addNote = (title, text, category, date) => {

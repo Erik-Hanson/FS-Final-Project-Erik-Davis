@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-
+import "./main.css";
 import { withFirebase } from "../Firebase";
 import * as ROUTE from "../constants/routes";
 
@@ -13,8 +13,7 @@ const INITIAL_STATE = {
 };
 
 const RegisterPage = () => (
-  <div>
-    <h1>Register</h1>
+  <div className="bg-dark" id="registerPage">
     <RegisterForm />
   </div>
 );
@@ -57,47 +56,63 @@ class RegisterFormBase extends Component {
       username === "";
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <label>Desired username</label>
-        <input
-          name="username"
-          value={username}
-          type="text"
-          onChange={this.onChange}
-          placeholder="Username123"
-        />
-        <input
-          type="text"
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          placeholder="Example@exmaple.com"
-        />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          placeholder="Password"
-        />
-        <input
-          type="password"
-          name="password2"
-          value={password2}
-          onChange={this.onChange}
-          placeholder="Confirm password"
-        />
-        <button disabled={validate} type="submit">
-          Register
+      <div className="container">
+        <div className="row">
+          <div className="col-10 mx-auto col-md-8 mt-4">
+            <div className="card card-body my-4">
+              <h2 className="h2 text-center">Register</h2>
+              <form onSubmit={this.onSubmit}>
+                <label>Desired username</label>
+                <input
+                  className="input-group mb-4 form-control"
+                  name="username"
+                  value={username}
+                  type="text"
+                  onChange={this.onChange}
+                  placeholder="Username123"
+                />
+                <label>Email</label>
+                <input
+                  className="input-group mb-4 form-control"
+                  type="text"
+                  name="email"
+                  value={email}
+                  onChange={this.onChange}
+                  placeholder="Example@exmaple.com"
+                />
+                <label>Password</label>
+                <input
+                  className="input-group mb-4 form-control"
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={this.onChange}
+                  placeholder="Password"
+                />
+                <label>Confirm Password</label>
+                <input
+                  className="input-group mb-4 form-control"
+                  type="password"
+                  name="password2"
+                  value={password2}
+                  onChange={this.onChange}
+                  placeholder="Confirm password"
+                />
+                <button className="btn btn-success btn-block" disabled={validate} type="submit">
+                  Register
         </button>
-        {error && <p>{error.message}</p>}
-      </form>
+                {error && <p>{error.message}</p>}
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
 
 const RegisterLink = () => (
-  <p>
+  <p className="text-light text-center">
     Register to Create a To-do List <Link to={ROUTE.REGISTER}>Register</Link>
   </p>
 );

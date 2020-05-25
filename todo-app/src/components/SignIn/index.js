@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-
+import "./main.css"; // Import CSS
 import { RegisterLink } from "../SignUp";
 import { withFirebase } from "../Firebase";
 import { PWForgetLink } from "../PasswordForget";
@@ -8,10 +8,8 @@ import { PWForgetLink } from "../PasswordForget";
 import * as ROUTE from "../constants/routes";
 
 const SignInPage = () => (
-  <div>
-    <h1>Sign In</h1>
+  <div className="bg-dark" id="signinPage">
     <SignInForm />
-    <PWForgetLink />
     <RegisterLink />
   </div>
 );
@@ -53,26 +51,40 @@ class SignInFormBase extends Component {
     const isInvalid = password === "" || email === "";
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          type="text"
-          name="email"
-          value={email}
-          placeholder="Email Address"
-          onChange={this.onChange}
-        />
-        <input
-          type="password"
-          name="password"
-          value={password}
-          placeholder="Password"
-          onChange={this.onChange}
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
-        {error && <p> {error.message}</p>}
-      </form>
+      <div className="container">
+        <div className="row">
+          <div className="col-10 mx-auto col-md-8 mt-4">
+            <div className="card card-body my-4">
+              <h1 className="h1 text-center">Log In</h1>
+              <form onSubmit={this.onSubmit}>
+                <input
+                  className="input-group mb-4 form-control"
+                  type="text"
+                  name="email"
+                  value={email}
+                  placeholder="Email Address"
+                  onChange={this.onChange}
+                />
+                <input
+                  className="input-group mb-4 form-control"
+                  type="password"
+                  name="password"
+                  value={password}
+                  placeholder="Password"
+                  onChange={this.onChange}
+                />
+                <button className="btn btn-success btn-block mb-4" disabled={isInvalid} type="submit">
+                  Sign In
+                </button>
+                {error && <p> {error.message}</p>}
+              </form>
+              <div className="text-center">
+                <PWForgetLink />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
