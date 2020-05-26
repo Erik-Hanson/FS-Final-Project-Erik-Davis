@@ -12,6 +12,7 @@ import { withRouter, useHistory } from "react-router-dom";
 import { withFirebase } from "./Firebase";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
+import "./Home.css";
 
 const Item = (props) => {
   //const [update, doUpdate] = useState(false);
@@ -65,6 +66,9 @@ const Item = (props) => {
       */
 
   return props.allNotes.map((note) => {
+    let date;
+    if (note.Date)
+      date = note.Date.toDate().getUTCMonth() + 1 + "/" + note.Date.toDate().getUTCDate();
     return (
       <Accordion>
         <li key={note.id} className="text-center list-group-item text-capitalize">
@@ -74,6 +78,13 @@ const Item = (props) => {
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={note.id}>
               <div>
+                <ul className="text-left">
+                  <li><span className="font-weight-bold">Description:</span> {note.Text}</li>
+                  <li><span className="font-weight-bold">Category:</span> {note.Category}</li>
+                  {date &&
+                    <li><span className="font-weight-bold">Due Date:</span> {date}</li>
+                  }
+                </ul>
                 <span id="edit" className="text-success mr-2">
                   <button type="submit" className="btn btn-sm">
                     <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
