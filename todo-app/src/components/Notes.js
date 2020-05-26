@@ -14,7 +14,7 @@ const NotesAuth = () => (
   // its own component as we are probably going to use this file for routing since
   // we will have multiple pages
   <body className="bg-dark">
-    <h1 className="display-1 text-center text-light">To Do App</h1>
+    <h1 className="display-1 text-center text-light pt-4">To Do App</h1>
     <div className="container">
       <div className="row">
         <div className="col-10 mx-auto col-md-8 mt-4">
@@ -34,7 +34,7 @@ const NotesNonAuth = () => (
   // its own component as we are probably going to use this file for routing since
   // we will have multiple pages
   <body className="bg-dark">
-    <h1 className="display-1 text-center text-light">To Do App</h1>
+    <h1 className="display-1 text-center text-light pt-4">To Do App</h1>
     <div className="container">
       <h1 className="text-light text-center">
         Please sign-in to view and create notes
