@@ -14,25 +14,6 @@ const config = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
-// const fire = firebase.initializeApp(config);
-// firebase.firestore();
-// firebase.auth();
-
-// export const executeCreateUserWithEmailAndPassword = (email, password) =>
-//   fire.auth.createUserWithEmailAndPassword(email, password);
-
-// export const executeSignInWithEmailAndPassword = (email, password) =>
-//   fire.auth.signInWithEmailAndPassword(email, password);
-
-// export const executeSignOut = () => fire.auth.signOut();
-
-// export const executerPWUpdate = (password) =>
-//   fire.auth.currentUser.updatePassword(password);
-
-// export const executePWUpdate = (password) => fire.auth.updatePassword(password);
-
-// export default firebase;
-
 class Firebase {
   constructor() {
     firebase.initializeApp(config);
@@ -55,17 +36,6 @@ class Firebase {
   executePWUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);
 
-  // getAllNotes = (uid) => this.db.collection(uid).doc("Notes").get();
-
-  // createNote = (uid) => this.db.collection(uid).doc("notes");
-
-  // getCategoryNotes = (uid, category) =>
-  //   this.db
-  //     .collection(uid)
-  //     .doc("Notes")
-  //     .collection("all")
-  //     .get()
-  //     .where("category" === category);
 
   // add user
   addUserToFirestore = (uid) => {
@@ -97,8 +67,6 @@ class Firebase {
         });
 
         dispatch(newNotes);
-        // console.log(newNotes);
-        // console.log("hi");
       });
 
     return newNotes;
@@ -177,9 +145,7 @@ class Firebase {
             ...note,
           };
 
-          //console.log(noteWithId);
           newNotes.push(noteWithId);
-          //console.log(newNotes);
         });
 
         dispatch(newNotes);

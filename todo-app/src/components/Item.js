@@ -12,32 +12,27 @@ import { withRouter, useHistory } from "react-router-dom";
 import { withFirebase } from "./Firebase";
 
 const Item = (props) => {
-  //const [update, doUpdate] = useState(false);
 
   const deleteNote = (noteIdToDelete, noteToDelete) => {
     const uid = props.firebase.auth.currentUser.uid;
-    //props.firebase.deleteNote(uid, noteIdToDelete, noteToDelete);
     props.firebase.deleteNote(uid, noteIdToDelete, noteToDelete);
     props.setUpdate(true);
   };
 
-  // const fetch = () => {
-  //   const uid = props.firebase.auth.currentUser.uid;
-  //   props.firebase.fetchAllNotes(uid, setNotes);
-  // };
-
-  // useEffect(() => {
-  //   //fetch();
-  //   //return <Item allNotes={notes} firebase={props.firebase} />
-  //   //return ItemList();
-  //   console.log("testing");
-  // }, [update])
-
   return props.allNotes.map((note) => {
+    if (note.Date)
+      var date = note.Date.toDate().getUTCMonth() + 1 + "/" + note.Date.toDate().getUTCDate();
     return (
       <li key={note.id} className="text-center list-group-item text-capitalize">
         <div className="border border-secondary my-2">
           <h5>{note.Title}</h5>
+          <ul className="text-left">
+            <li>Description: {note.Text}</li>
+            <li>Category: {note.Category}</li>
+            {note.Date &&
+              <li>Date Due: {date}</li>
+            }
+          </ul>
           <div>
             <span id="edit" className="text-success mr-2">
               <button type="submit" className="btn btn-sm">
