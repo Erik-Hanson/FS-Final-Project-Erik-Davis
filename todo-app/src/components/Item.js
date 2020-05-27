@@ -50,8 +50,9 @@ const DeleteModal = (props) => {
 const Item = (props) => {
   const deleteNote = (noteIdToDelete, noteToDelete) => {
     const uid = props.firebase.auth.currentUser.uid;
-    props.firebase.deleteNote(uid, noteIdToDelete, noteToDelete);
-    props.setUpdate(true);
+    props.firebase.deleteNote(uid, noteIdToDelete, noteToDelete, props.setUpdate);
+    //moving this to api call 
+    //props.setUpdate(true);
   };
 
   return props.allNotes.map((note) => {
