@@ -7,11 +7,18 @@ import ItemList from "./ItemList";
 import Notes from "./Notes";
 import { withRouter, useHistory } from "react-router-dom";
 import { withFirebase } from "./Firebase";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Accordion from "react-bootstrap/Accordion";
-import Card from "react-bootstrap/Card";
+import Datepicker from "react-date-picker";
+import {
+  Modal,
+  Button,
+  Accordion,
+  Card,
+  Col,
+  Row,
+  Form,
+} from "react-bootstrap";
 
+//Modal for deleting
 const DeleteModal = (props) => {
   const [show, setShow] = useState(false);
 
@@ -28,7 +35,6 @@ const DeleteModal = (props) => {
       <Button variant="danger" onClick={handleShow}>
         <i className="fa fa-trash"></i>
       </Button>
-
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Are you sure?</Modal.Title>
@@ -49,7 +55,146 @@ const DeleteModal = (props) => {
   );
 };
 
+//Editing
+const Edit = (props) => {
+  const [editMode, setEdit] = useState(false);
+  const [noteText, setNoteText] = useState(props.note.Text);
+  const [noteTitle, setNoteTitle] = useState(props.note.Title);
+  const [category, setCategory] = useState(props.note.category);
+  const [date, setDate] = useState(props.note.date);
+  //const [note, setNote] = useState(props.note);
+
+  // const fetch = async () => {
+  //   await props.firebase.fetchNote(note.id, setNote);
+  // };
+
+  // useEffect(() => {
+  //   fetch();
+  //   setEdit(false);
+  // }, []);
+
+  const toggleEdit = () => {
+    if (editMode === true) {
+      setEdit(false);
+    } else {
+      setEdit(true);
+    }
+  };
+
+  const cleanUp = () => {
+    setEdit(false);
+  };
+
+  const submitEdit = () => {
+    props.firebase.editNote(
+      noteTitle,
+      noteText,
+      category,
+      props.note.id,
+      setEdit
+    );
+    cleanUp();
+  };
+
+  if (editMode === true) {
+    return (
+      <>
+        <Form>
+          <li>
+            <span className="font-weight-bold">Title:</span>{" "}
+            <input
+              type="text"
+              onChange={(e) => {
+                setNoteTitle(e.currentTarget.value);
+              }}
+              defaultValue={props.note.Title}
+            />
+          </li>
+          <li>
+            <span className="font-weight-bold">Description:</span>{" "}
+            <input
+              type="text"
+              onChange={(e) => setNoteText(e.currentTarget.value)}
+              defaultValue={props.note.Text}
+            />
+          </li>
+          <li>
+            <span className="font-weight-bold">Category:</span>{" "}
+            <input
+              type="text"
+              onChange={(e) => setCategory(e.currentTarget.value)}
+              defaultValue={props.note.Category}
+            />
+          </li>
+          {/* {props.date && ( */}
+          <li>
+            <span className="font-weight-bold">Due Date:</span>
+            {/* {props.date} */}
+            {/* <div className="text-center"> */}
+            {/* <span className="bg-light border-0">
+            <Datepicker onChange={changeDate} value={date} />
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span> */}
+            {/* </div> */}
+          </li>
+          {/* )} */}
+          <span id="edit" className="text-success mr-2">
+            <Button variant="primary" className="btn" onClick={toggleEdit}>
+              <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </Button>
+          </span>
+          <div>
+            <Button variant="primary" size="sm" onClick={submitEdit}>
+              Confirm
+            </Button>
+          </div>
+        </Form>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <li>
+          <span className="font-weight-bold">Description:</span>{" "}
+          {props.note.Text}
+        </li>
+        <li>
+          <span className="font-weight-bold">Category:</span>{" "}
+          {props.note.Category}
+        </li>
+        {/* {props.date && ( */}
+        <li>
+          <span className="font-weight-bold">Due Date:</span> {props.date}
+        </li>
+        {/* )} */}
+        <span id="edit" className="text-success mr-2">
+          <Button variant="primary" className="btn" onClick={toggleEdit}>
+            <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </Button>
+        </span>
+      </>
+    );
+  }
+};
+
+//Item
 const Item = (props) => {
+  //input true on edit
+
+  // const [date, setDate] = useState(new Date());
+
+  // useEffect(() => {
+  //   setInput(false);
+  // });
+
+  // const toggleEdit = (props) => {
+  //   if (setInput === true) {
+  //     handleEditClose();
+  //   } else {
+  //     handleEditOpen();
+  //   }
+  // };
+
   const deleteNote = (noteIdToDelete, noteToDelete) => {
     const uid = props.firebase.auth.currentUser.uid;
     props.firebase.deleteNote(
@@ -58,8 +203,6 @@ const Item = (props) => {
       noteToDelete,
       props.setUpdate
     );
-    //moving this to api call
-    //props.setUpdate(true);
   };
 
   return props.allNotes.map((note) => {
@@ -87,25 +230,8 @@ const Item = (props) => {
             <Accordion.Collapse eventKey={note.id}>
               <div>
                 <ul className="text-left pt-2">
-                  <li>
-                    <span className="font-weight-bold">Description:</span>{" "}
-                    {note.Text}
-                  </li>
-                  <li>
-                    <span className="font-weight-bold">Category:</span>{" "}
-                    {note.Category}
-                  </li>
-                  {date && (
-                    <li>
-                      <span className="font-weight-bold">Due Date:</span> {date}
-                    </li>
-                  )}
+                  <Edit note={note} date={date} firebase={props.firebase} />
                 </ul>
-                <span id="edit" className="text-success mr-2">
-                  <button type="submit" className="btn btn-sm">
-                    <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
-                  </button>
-                </span>
                 <span id="delete" className="text-danger">
                   <DeleteModal
                     function={deleteNote}
