@@ -33,8 +33,8 @@ class Home extends Component {
             if (data) {
               console.log(data);
               return (
-                <body className="bg-dark">
-                  <blockquote class="blockquote">
+                <div className="bg-dark">
+                  <blockquote className="blockquote">
                     <p className="display-4 text-light pt-4 pl-2">
                       {data.content}
                     </p>
@@ -48,7 +48,7 @@ class Home extends Component {
                       <button className="btn btn-primary">Go To Notes</button>
                     </Link>
                   </div>
-                </body>
+                </div>
               );
             }
           }}

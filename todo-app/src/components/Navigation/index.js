@@ -1,9 +1,9 @@
 import React from "react";
-import { Link, Route } from "react-router-dom";
+// import { Link, Route } from "react-router-dom";
 import SignOutButton from "../SignOut/index";
 import "./main.css";
 import * as ROUTE from "../constants/routes";
-import { Nav, Navbar, Button } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 
 const Navigation = ({ authUser }) => (
   <div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
