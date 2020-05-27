@@ -1,3 +1,7 @@
 footer {
-    font-size: 36px;
+  font-size: 36px;
+}
+
+ul {
+  list-style-type: none;
 }
