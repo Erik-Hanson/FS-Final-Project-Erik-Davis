@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Route } from "react-router-dom";
 import SignOutButton from "../SignOut/index";
+import "./main.css";
 import * as ROUTE from "../constants/routes";
 
 const Navigation = ({ authUser }) => (
@@ -9,8 +10,8 @@ const Navigation = ({ authUser }) => (
 
 const NavigationAuth = () => (
   <header>
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">
+    <nav className="navbar navbar-expand-lg navbar-light navagationBar">
+      <a className="navbar-brand text-light" id="banner">
         To-Do
       </a>
       <button
@@ -27,16 +28,17 @@ const NavigationAuth = () => (
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
 
-          <a className="nav-item nav-link active">
+          <a className="nav-item nav-link active pt-3 linky">
             <Link to={ROUTE.NOTES}>Notes</Link>
           </a>
-          <a className="nav-item nav-link">
+          <a className="nav-item nav-link pt-3 linky">
             <Link to={ROUTE.TRASH}>Trashed Notes</Link>
           </a>
-          <a className="nav-item nav-link">
-            <SignOutButton />
-          </a>
-
+          <div id="logout">
+            <a className="nav-item nav-link">
+              <SignOutButton />
+            </a>
+          </div>
         </div>
       </div>
     </nav>
@@ -45,9 +47,9 @@ const NavigationAuth = () => (
 
 const NavigationNonAuth = () => (
   <header>
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">
-        Navigation
+    <nav className="navbar navbar-expand-lg navbar-light bg-success">
+      <a className="navbar-brand text-light" id="banner">
+        To Do
       </a>
       <button
         className="navbar-toggler"
@@ -62,10 +64,10 @@ const NavigationNonAuth = () => (
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav" id="mainNavBar">
-          <a className="nav-item nav-link">
+          <a className="nav-item nav-link linky">
             <Link to={ROUTE.SIGN_IN}>Sign In</Link>
           </a>
-          <a className="nav-item nav-link">
+          <a className="nav-item nav-link linky">
             <Link to={ROUTE.HOME}>Home</Link>
           </a>
         </div>

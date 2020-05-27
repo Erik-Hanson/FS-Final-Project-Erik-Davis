@@ -5,9 +5,10 @@ import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
+import "./main.css"
 
 const Trash = ({ authUser }) => {
-  return <div>{authUser ? <TrashAuth /> : <TrashNonAuth />}</div>;
+  return <div id="auth">{authUser ? <TrashAuth /> : <TrashNonAuth />}</div>;
 };
 
 const TrashList = () => {
@@ -36,7 +37,7 @@ const TrashListBase = (props) => {
 
   //console.log(notes);
   return (
-    <Container>
+    <Container className="bg-secondary mt-5 pt-4 pb-4">
       <Accordion>
         {notes.map((note) => {
           return (

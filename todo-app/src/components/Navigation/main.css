@@ -1,0 +1,25 @@
+#logout {
+  position: absolute;
+  right: 0;
+}
+
+.navagationBar {
+  background-color: #28a745;
+}
+
+a {
+  display: block;
+  padding: 8px;
+  color: #f8f9fa;
+}
+
+.linky a:hover {
+  text-decoration: none;
+  background-color: #0076c0;
+  color: #f8f9fa;
+  /*color: #0076c0;*/
+}
+
+#banner a:hover {
+  color: #f8f9fa;
+}
