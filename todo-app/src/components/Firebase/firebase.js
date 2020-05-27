@@ -115,6 +115,35 @@ class Firebase {
     this.db.collection(uid).doc("Notes").collection("trash").add(newNote);
   };
 
+  restoreNote = async (note, noteId, dispatch) => {
+    const uid = this.auth.currentUser.uid;
+    const newNote = {
+      Text: note.Text,
+      Date: note.Date,
+      Category: note.Category,
+      Title: note.Title,
+    };
+
+    //restore notes
+    //delete from trash
+    await this.db
+      .collection(uid)
+      .doc("Notes")
+      .collection("all")
+      .add(newNote)
+      .then(
+        this.db
+          .collection(uid)
+          .doc("Notes")
+          .collection("trash")
+          .doc(noteId)
+          .delete()
+      )
+      .then(dispatch(true));
+
+    //set update to true
+  };
+
   deleteNoteFromNotes = (uid, noteId) => {
     this.db.collection(uid).doc("Notes").collection("all").doc(noteId).delete();
   };
@@ -125,22 +154,27 @@ class Firebase {
   };
 
   deletePermanent = async (uid, noteId, dispatch) => {
-    await this.db.collection(uid).doc("Notes").collection("trash").doc(noteId).delete();
+    await this.db
+      .collection(uid)
+      .doc("Notes")
+      .collection("trash")
+      .doc(noteId)
+      .delete();
     dispatch(true);
-  }
+  };
 
   deleteAllNotes = (notes, dispatch) => {
     notes.map((note) => {
-      this.deleteNote(this.auth.currentUser.uid, note.id, note)
+      this.deleteNote(this.auth.currentUser.uid, note.id, note);
       dispatch(true);
-    })
-  }
+    });
+  };
 
   deleteAllTrash = (notes, dispatch) => {
     notes.map((note) => {
-      this.deletePermanent(this.auth.currentUser.uid, note.id, dispatch)
-    })
-  }
+      this.deletePermanent(this.auth.currentUser.uid, note.id, dispatch);
+    });
+  };
 
   //add a note
   addNote = (title, text, category, date) => {

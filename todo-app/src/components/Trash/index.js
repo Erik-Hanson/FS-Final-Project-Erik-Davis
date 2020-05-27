@@ -5,7 +5,47 @@ import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import "./main.css"
+import Modal from "react-bootstrap/Modal";
+import "./main.css";
+
+// const Restore = () => {
+//   return <RestoreWrapped />;
+// };
+
+const Restore = (props) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const restoreNote = () => {
+    props.firebase.restoreNote(props.note, props.noteId, props.setUpdate);
+    handleClose();
+  };
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow}>
+        Restore this Note
+      </Button>
+
+      <Modal show={show} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Confirm you want to move note out of trash</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            No
+          </Button>
+          <Button variant="primary" onClick={restoreNote}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
 
 const Trash = ({ authUser }) => {
   return <div id="auth">{authUser ? <TrashAuth /> : <TrashNonAuth />}</div>;
@@ -27,7 +67,6 @@ const TrashListBase = (props) => {
     e.preventDefault();
     const uid = props.firebase.auth.currentUser.uid;
     props.firebase.deletePermanent(uid, noteIdToDelete, setUpdate);
-    //setUpdate(true);
   };
 
   useEffect(() => {
@@ -35,7 +74,6 @@ const TrashListBase = (props) => {
     setUpdate(false);
   }, [fetch, update]);
 
-  //console.log(notes);
   return (
     <Container className="bg-secondary mt-5 pt-4 pb-4">
       <Accordion>
@@ -53,15 +91,25 @@ const TrashListBase = (props) => {
                 <Card.Body>
                   <div>Text: {note.Text}</div>
                   <div>Category: {note.Category}</div>
-                  <span id="delete" className="text-danger">
-                    <button
-                      type="submit"
-                      className="btn btn-sm"
-                      onClick={(e) => deleteNote(e, note.id)}
-                    >
-                      <i className="fa fa-trash"></i>
-                    </button>
-                  </span>
+                  <div>
+                    <span id="delete" className="text-danger">
+                      <button
+                        type="submit"
+                        className="btn btn-sm"
+                        onClick={(e) => deleteNote(e, note.id)}
+                      >
+                        <i className="fa fa-trash"></i>
+                      </button>
+                    </span>
+                  </div>
+                  <div>
+                    <Restore
+                      note={note}
+                      noteId={note.id}
+                      setUpdate={setUpdate}
+                      firebase={props.firebase}
+                    />
+                  </div>
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
@@ -88,5 +136,6 @@ const TrashNonAuth = () => {
 };
 
 const TrashListWrapped = withRouter(withFirebase(TrashListBase));
+// const RestoreWrapped = withRouter(withFirebase(Restore));
 
 export default Trash;
