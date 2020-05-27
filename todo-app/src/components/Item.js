@@ -2,11 +2,9 @@
 This file contains the layout for notes in the to do items list
 */
 
-import React, { useEffect, useState, useCallback } from "react";
-import ItemList from "./ItemList";
-import Notes from "./Notes";
-import { withRouter, useHistory } from "react-router-dom";
-import { withFirebase } from "./Firebase";
+import React, { useState } from "react";
+// import { withRouter, useHistory } from "react-router-dom";
+// import { withFirebase } from "./Firebase";
 import Datepicker from "react-date-picker";
 import {
   Modal,
@@ -144,7 +142,7 @@ const Edit = (props) => {
             </Button>
           </span>
           <div>
-            <Button variant="primary" size="sm" onClick={submitEdit}>
+            <Button variant="success" size="sm" onClick={submitEdit}>
               Confirm
             </Button>
           </div>

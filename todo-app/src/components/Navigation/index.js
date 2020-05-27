@@ -3,77 +3,37 @@ import { Link, Route } from "react-router-dom";
 import SignOutButton from "../SignOut/index";
 import "./main.css";
 import * as ROUTE from "../constants/routes";
+import { Nav, Navbar, Button } from "react-bootstrap";
 
 const Navigation = ({ authUser }) => (
   <div>{authUser ? <NavigationAuth /> : <NavigationNonAuth />}</div>
 );
 
 const NavigationAuth = () => (
-  <header>
-    <nav className="navbar navbar-expand-lg navbar-light navagationBar">
-      <a className="navbar-brand text-light" id="banner">
-        To-Do
-      </a>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div className="navbar-nav">
-
-          <a className="nav-item nav-link active pt-3 linky">
-            <Link to={ROUTE.NOTES}>Notes</Link>
-          </a>
-          <a className="nav-item nav-link pt-3 linky">
-            <Link to={ROUTE.TRASH}>Trashed Notes</Link>
-          </a>
-          <div id="logout">
-            <a className="nav-item nav-link">
-              <SignOutButton />
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
+  <>
+    <Navbar bg="dark" variant="dark">
+      <Navbar.Brand href={ROUTE.NOTES}>To do</Navbar.Brand>
+      <Nav className="mr-auto">
+        <Nav.Link href={ROUTE.HOME}>Home</Nav.Link>
+        <Nav.Link href={ROUTE.NOTES}>Notes</Nav.Link>
+        <Nav.Link href={ROUTE.TRASH}>Trash</Nav.Link>
+      </Nav>
+      <SignOutButton />
+    </Navbar>
+  </>
 );
 
 const NavigationNonAuth = () => (
-  <header>
-    <nav className="navbar navbar-expand-lg navbar-light bg-success">
-      <a className="navbar-brand text-light" id="banner">
-        To Do
-      </a>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div className="navbar-nav" id="mainNavBar">
-          <a className="nav-item nav-link linky">
-            <Link to={ROUTE.SIGN_IN}>Sign In</Link>
-          </a>
-          <a className="nav-item nav-link linky">
-            <Link to={ROUTE.HOME}>Home</Link>
-          </a>
-        </div>
-      </div>
-    </nav>
-  </header>
+  <>
+    <Navbar bg="dark" variant="dark">
+      <Navbar.Brand href={ROUTE.NOTES}>To do</Navbar.Brand>
+      <Nav className="mr-auto">
+        <Nav.Link href={ROUTE.HOME}>Home</Nav.Link>
+        <Nav.Link href={ROUTE.SIGN_IN}>Sign In</Nav.Link>
+        <Nav.Link href={ROUTE.REGISTER}>Register</Nav.Link>
+      </Nav>
+    </Navbar>
+  </>
 );
 
 export default Navigation;

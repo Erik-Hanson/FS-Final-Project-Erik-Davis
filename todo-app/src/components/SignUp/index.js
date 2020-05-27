@@ -117,7 +117,10 @@ class RegisterFormBase extends Component {
 
 const RegisterLink = () => (
   <p className="text-light text-center">
-    Don't have an account? <Link to={ROUTE.REGISTER}>Register</Link>
+    Don't have an account?{" "}
+    <Link style={{ color: "blue" }} to={ROUTE.REGISTER}>
+      Register
+    </Link>
   </p>
 );
 
