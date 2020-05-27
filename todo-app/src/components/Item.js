@@ -1,8 +1,5 @@
 /*
-This class contains the layout for an object. As of right now the values
-are hardcoded but should eventually be switched to populate the items
-using data from a database. This component is called within the ItemList
-component.
+This file contains the layout for notes in the to do items list
 */
 
 import React, { useEffect, useState, useCallback } from "react";
@@ -15,55 +12,12 @@ import Card from "react-bootstrap/Card";
 import "./Home.css";
 
 const Item = (props) => {
-  //const [update, doUpdate] = useState(false);
 
   const deleteNote = (noteIdToDelete, noteToDelete) => {
     const uid = props.firebase.auth.currentUser.uid;
-    //props.firebase.deleteNote(uid, noteIdToDelete, noteToDelete);
     props.firebase.deleteNote(uid, noteIdToDelete, noteToDelete);
     props.setUpdate(true);
   };
-
-  // const fetch = () => {
-  //   const uid = props.firebase.auth.currentUser.uid;
-  //   props.firebase.fetchAllNotes(uid, setNotes);
-  // };
-
-  // useEffect(() => {
-  //   //fetch();
-  //   //return <Item allNotes={notes} firebase={props.firebase} />
-  //   //return ItemList();
-  //   console.log("testing");
-  // }, [update])
-
-  /*
-        <Accordion>
-        {notes.map((note) => {
-          return (
-            <Card>
-              <Accordion.Toggle className="text-center" as={Card.Header} eventKey={note.id}>
-                {note.Title}
-              </Accordion.Toggle>
-              <Accordion.Collapse eventKey={note.id}>
-                <Card.Body>
-                  <div>Text: {note.Text}</div>
-                  <div>Category: {note.Category}</div>
-                  <span id="delete" className="text-danger">
-                    <button
-                      type="submit"
-                      className="btn btn-sm"
-                      onClick={(e) => deleteNote(e, note.id)}
-                    >
-                      <i className="fa fa-trash"></i>
-                    </button>
-                  </span>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          );
-        })}
-      </Accordion>
-      */
 
   return props.allNotes.map((note) => {
     let date;
@@ -78,7 +32,7 @@ const Item = (props) => {
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={note.id}>
               <div>
-                <ul className="text-left">
+                <ul className="text-left pt-2">
                   <li><span className="font-weight-bold">Description:</span> {note.Text}</li>
                   <li><span className="font-weight-bold">Category:</span> {note.Category}</li>
                   {date &&

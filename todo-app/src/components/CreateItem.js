@@ -3,7 +3,6 @@ This class is the component which contains the form to create an to do item.
 It's called within App.js.
 */
 
-//import React, { Component } from 'react'
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import "./CreateItem.css";
 import { withRouter } from "react-router-dom";
@@ -11,14 +10,7 @@ import { withFirebase } from "./Firebase";
 import ItemList from "./ItemList";
 import DatePicker from "react-date-picker";
 
-// const CreateItem = (props) => {
-//   return <CreateItemWrapped props={props} />;
-// };
-
-//<i className="fa fa-plus-circle"></i>
-
 const CreateItem = (props) => {
-    //const [note, setNote] = useState();
     const [noteText, setNoteText] = useState("");
     const [noteTitle, setNoteTitle] = useState("");
     const [category, setCategory] = useState("");
@@ -100,9 +92,5 @@ const CreateItem = (props) => {
         </div>
     );
 };
-
-// const CreateItemWrapped = withRouter(withFirebase(CreateItemBase));
-
-//export { CreateItemWrapped };
 
 export default CreateItem;
