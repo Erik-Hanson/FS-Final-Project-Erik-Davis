@@ -12,6 +12,42 @@ import "./main.css";
 //   return <RestoreWrapped />;
 // };
 
+const DeleteModal = (props) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const deleteNoteModal = () => {
+    const uid = props.firebase.auth.currentUser.uid;
+    props.firebase.deletePermanent(uid, props.noteIdToDelete, props.setUpdate);
+    handleClose();
+  };
+
+  return (
+    <>
+      <Button variant="danger" onClick={handleShow}>
+        <i className="fa fa-trash"></i>
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Permanently delete note (cannot be restored)</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            No
+          </Button>
+          <Button variant="primary" onClick={deleteNoteModal}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
+
 const Restore = (props) => {
   const [show, setShow] = useState(false);
 
@@ -29,11 +65,11 @@ const Restore = (props) => {
         Restore this Note
       </Button>
 
-      <Modal show={show} onHide={handleClose} animation={false}>
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Are you sure?</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Confirm you want to move note out of trash</Modal.Body>
+        <Modal.Body>You want to move note out of trash</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             No
@@ -63,11 +99,11 @@ const TrashListBase = (props) => {
     await props.firebase.fetchTrash(setNotes);
   }, [props.firebase]);
 
-  const deleteNote = (e, noteIdToDelete) => {
-    e.preventDefault();
-    const uid = props.firebase.auth.currentUser.uid;
-    props.firebase.deletePermanent(uid, noteIdToDelete, setUpdate);
-  };
+  // const deleteNote = (e, noteIdToDelete) => {
+  //   e.preventDefault();
+  //   const uid = props.firebase.auth.currentUser.uid;
+  //   props.firebase.deletePermanent(uid, noteIdToDelete, setUpdate);
+  // };
 
   useEffect(() => {
     fetch();
@@ -93,13 +129,12 @@ const TrashListBase = (props) => {
                   <div>Category: {note.Category}</div>
                   <div>
                     <span id="delete" className="text-danger">
-                      <button
-                        type="submit"
-                        className="btn btn-sm"
-                        onClick={(e) => deleteNote(e, note.id)}
-                      >
-                        <i className="fa fa-trash"></i>
-                      </button>
+                      <DeleteModal
+                        firebase={props.firebase}
+                        noteIdToDelete={note.id}
+                        note={note}
+                        setUpdate={setUpdate}
+                      />
                     </span>
                   </div>
                   <div>
@@ -139,3 +174,9 @@ const TrashListWrapped = withRouter(withFirebase(TrashListBase));
 // const RestoreWrapped = withRouter(withFirebase(Restore));
 
 export default Trash;
+
+// <button
+//   type="submit"
+//   className="btn btn-sm"
+//   onClick={(e) => deleteNote(e, note.id)}
+// ></button>

@@ -10,28 +10,52 @@ import ItemList from "./ItemList";
 import Notes from "./Notes";
 import { withRouter, useHistory } from "react-router-dom";
 import { withFirebase } from "./Firebase";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+
+const DeleteModal = (props) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const deleteNoteModal = () => {
+    props.function(props.noteId, props.note);
+    handleClose();
+  };
+
+  return (
+    <>
+      <Button variant="danger" onClick={handleShow}>
+        <i className="fa fa-trash"></i>
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Delete this note (You can get your note back from the trash)
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            No
+          </Button>
+          <Button variant="primary" onClick={deleteNoteModal}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
 
 const Item = (props) => {
-  //const [update, doUpdate] = useState(false);
-
   const deleteNote = (noteIdToDelete, noteToDelete) => {
     const uid = props.firebase.auth.currentUser.uid;
-    //props.firebase.deleteNote(uid, noteIdToDelete, noteToDelete);
     props.firebase.deleteNote(uid, noteIdToDelete, noteToDelete);
     props.setUpdate(true);
   };
-
-  // const fetch = () => {
-  //   const uid = props.firebase.auth.currentUser.uid;
-  //   props.firebase.fetchAllNotes(uid, setNotes);
-  // };
-
-  // useEffect(() => {
-  //   //fetch();
-  //   //return <Item allNotes={notes} firebase={props.firebase} />
-  //   //return ItemList();
-  //   console.log("testing");
-  // }, [update])
 
   return props.allNotes.map((note) => {
     return (
@@ -45,13 +69,7 @@ const Item = (props) => {
               </button>
             </span>
             <span id="delete" className="text-danger">
-              <button
-                type="submit"
-                className="btn btn-sm"
-                onClick={() => deleteNote(note.id, note)}
-              >
-                <i className="fa fa-trash"></i>
-              </button>
+              <DeleteModal function={deleteNote} noteId={note.id} note={note} />
             </span>
           </div>
         </div>
@@ -61,3 +79,9 @@ const Item = (props) => {
 };
 
 export default Item;
+
+// <button
+//   type="submit"
+//   className="btn btn-sm"
+//   onClick={() => deleteNote(note.id, note)}
+// ></button>
