@@ -22,13 +22,12 @@ const TrashListBase = (props) => {
     await props.firebase.fetchTrash(setNotes);
   }, [props.firebase]);
 
-
   const deleteNote = (e, noteIdToDelete) => {
     e.preventDefault();
     const uid = props.firebase.auth.currentUser.uid;
     props.firebase.deletePermanent(uid, noteIdToDelete, setUpdate);
     //setUpdate(true);
-  }
+  };
 
   useEffect(() => {
     fetch();
@@ -42,7 +41,11 @@ const TrashListBase = (props) => {
         {notes.map((note) => {
           return (
             <Card>
-              <Accordion.Toggle className="text-center" as={Card.Header} eventKey={note.id}>
+              <Accordion.Toggle
+                className="text-center"
+                as={Card.Header}
+                eventKey={note.id}
+              >
                 {note.Title}
               </Accordion.Toggle>
               <Accordion.Collapse eventKey={note.id}>
@@ -64,9 +67,13 @@ const TrashListBase = (props) => {
           );
         })}
       </Accordion>
-      <button type="button" className="btn btn-danger btn-block mt-4" onClick={() => props.firebase.deleteAllTrash(notes, setUpdate)}>
+      <button
+        type="button"
+        className="btn btn-danger btn-block mt-4"
+        onClick={() => props.firebase.deleteAllTrash(notes, setUpdate)}
+      >
         Clear Your Trash
-        </button>
+      </button>
     </Container>
   );
 };

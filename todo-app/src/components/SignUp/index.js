@@ -69,7 +69,7 @@ class RegisterFormBase extends Component {
                   value={username}
                   type="text"
                   onChange={this.onChange}
-                  placeholder="Username123"
+                  placeholder="Username"
                 />
                 <label>Email</label>
                 <input
@@ -78,7 +78,7 @@ class RegisterFormBase extends Component {
                   name="email"
                   value={email}
                   onChange={this.onChange}
-                  placeholder="Example@exmaple.com"
+                  placeholder="Example@example.com"
                 />
                 <label>Password</label>
                 <input
@@ -98,9 +98,13 @@ class RegisterFormBase extends Component {
                   onChange={this.onChange}
                   placeholder="Confirm password"
                 />
-                <button className="btn btn-success btn-block" disabled={validate} type="submit">
+                <button
+                  className="btn btn-success btn-block"
+                  disabled={validate}
+                  type="submit"
+                >
                   Register
-        </button>
+                </button>
                 {error && <p>{error.message}</p>}
               </form>
             </div>
@@ -113,7 +117,7 @@ class RegisterFormBase extends Component {
 
 const RegisterLink = () => (
   <p className="text-light text-center">
-    Register to Create a To-do List <Link to={ROUTE.REGISTER}>Register</Link>
+    Don't have an account? <Link to={ROUTE.REGISTER}>Register</Link>
   </p>
 );
 
