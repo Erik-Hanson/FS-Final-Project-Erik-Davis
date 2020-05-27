@@ -9,6 +9,8 @@ import { withRouter, useHistory } from "react-router-dom";
 import { withFirebase } from "./Firebase";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Accordion from "react-bootstrap/Accordion";
+import Card from "react-bootstrap/Card";
 
 const DeleteModal = (props) => {
   const [show, setShow] = useState(false);
@@ -50,30 +52,54 @@ const DeleteModal = (props) => {
 const Item = (props) => {
   const deleteNote = (noteIdToDelete, noteToDelete) => {
     const uid = props.firebase.auth.currentUser.uid;
-    props.firebase.deleteNote(uid, noteIdToDelete, noteToDelete, props.setUpdate);
-    //moving this to api call 
+    props.firebase.deleteNote(
+      uid,
+      noteIdToDelete,
+      noteToDelete,
+      props.setUpdate
+    );
+    //moving this to api call
     //props.setUpdate(true);
   };
 
   return props.allNotes.map((note) => {
     let date;
     if (note.Date)
-      date = note.Date.toDate().getUTCMonth() + 1 + "/" + note.Date.toDate().getUTCDate();
+      date =
+        note.Date.toDate().getUTCMonth() +
+        1 +
+        "/" +
+        note.Date.toDate().getUTCDate();
     return (
       <Accordion>
-        <li key={note.id} className="text-center list-group-item text-capitalize">
+        <li
+          key={note.id}
+          className="text-center list-group-item text-capitalize"
+        >
           <div className="border border-secondary my-2">
-            <Accordion.Toggle className="text-center" as={Card.Header} eventKey={note.id}>
+            <Accordion.Toggle
+              className="text-center"
+              as={Card.Header}
+              eventKey={note.id}
+            >
               {note.Title}
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={note.id}>
               <div>
                 <ul className="text-left pt-2">
-                  <li><span className="font-weight-bold">Description:</span> {note.Text}</li>
-                  <li><span className="font-weight-bold">Category:</span> {note.Category}</li>
-                  {date &&
-                    <li><span className="font-weight-bold">Due Date:</span> {date}</li>
-                  }
+                  <li>
+                    <span className="font-weight-bold">Description:</span>{" "}
+                    {note.Text}
+                  </li>
+                  <li>
+                    <span className="font-weight-bold">Category:</span>{" "}
+                    {note.Category}
+                  </li>
+                  {date && (
+                    <li>
+                      <span className="font-weight-bold">Due Date:</span> {date}
+                    </li>
+                  )}
                 </ul>
                 <span id="edit" className="text-success mr-2">
                   <button type="submit" className="btn btn-sm">
@@ -81,9 +107,11 @@ const Item = (props) => {
                   </button>
                 </span>
                 <span id="delete" className="text-danger">
-              <DeleteModal function={deleteNote} noteId={note.id} note={note} />
-                    <i className="fa fa-trash"></i>
-                  </button>
+                  <DeleteModal
+                    function={deleteNote}
+                    noteId={note.id}
+                    note={note}
+                  />
                 </span>
               </div>
             </Accordion.Collapse>
@@ -95,9 +123,3 @@ const Item = (props) => {
 };
 
 export default Item;
-
-// <button
-//   type="submit"
-//   className="btn btn-sm"
-//   onClick={() => deleteNote(note.id, note)}
-// ></button>
