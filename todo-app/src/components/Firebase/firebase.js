@@ -186,38 +186,16 @@ class Firebase {
     return newNotes;
   };
 
-  editNote = async (title, text, category, noteId) => {
+  editNote = (title, text, category, noteId) => {
     const uid = this.auth.currentUser.uid;
 
-    await this.db
-      .collection(uid)
-      .doc("Notes")
-      .collection("all")
-      .doc(noteId)
-      .set({
-        Title: title,
-        Text: text,
-        // Date: date,
-        Category: category,
-      });
+    this.db.collection(uid).doc("Notes").collection("all").doc(noteId).set({
+      Title: title,
+      Text: text,
+      // Date: date,
+      Category: category,
+    });
   };
-
-  // fetchNote = (noteId, dispatch) => {
-  //   const uid = this.auth.currentUser.uid;
-  //   this.db
-  //     .collection(uid)
-  //     .doc("Notes")
-  //     .collection("all")
-  //     .doc(noteId)
-  //     .get()
-  //     .then(function (doc) {
-  //       const newNote = {
-  //         id: doc.id,
-  //         ...doc.data(),
-  //       };
-  //       dispatch(newNote);
-  //     });
-  // };
 }
 
 export default Firebase;

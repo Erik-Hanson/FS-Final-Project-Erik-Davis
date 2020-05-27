@@ -58,7 +58,7 @@ const Edit = (props) => {
   const [editMode, setEdit] = useState(false);
   const [noteText, setNoteText] = useState(props.note.Text);
   const [noteTitle, setNoteTitle] = useState(props.note.Title);
-  const [category, setCategory] = useState(props.note.category);
+  const [category, setCategory] = useState(props.note.Category);
   const [date, setDate] = useState(props.note.date);
   //const [note, setNote] = useState(props.note);
 
@@ -79,19 +79,10 @@ const Edit = (props) => {
     }
   };
 
-  const cleanUp = () => {
-    setEdit(false);
-  };
-
-  const submitEdit = () => {
-    props.firebase.editNote(
-      noteTitle,
-      noteText,
-      category,
-      props.note.id,
-      setEdit
-    );
-    cleanUp();
+  const submitEdit = async () => {
+    await props.firebase.editNote(noteTitle, noteText, category, props.note.id);
+    toggleEdit();
+    props.updateNotes(true);
   };
 
   if (editMode === true) {
@@ -177,22 +168,6 @@ const Edit = (props) => {
 
 //Item
 const Item = (props) => {
-  //input true on edit
-
-  // const [date, setDate] = useState(new Date());
-
-  // useEffect(() => {
-  //   setInput(false);
-  // });
-
-  // const toggleEdit = (props) => {
-  //   if (setInput === true) {
-  //     handleEditClose();
-  //   } else {
-  //     handleEditOpen();
-  //   }
-  // };
-
   const deleteNote = (noteIdToDelete, noteToDelete) => {
     const uid = props.firebase.auth.currentUser.uid;
     props.firebase.deleteNote(
@@ -228,7 +203,12 @@ const Item = (props) => {
             <Accordion.Collapse eventKey={note.id}>
               <div>
                 <ul className="text-left pt-2">
-                  <Edit note={note} date={date} firebase={props.firebase} />
+                  <Edit
+                    note={note}
+                    date={date}
+                    firebase={props.firebase}
+                    updateNotes={props.setUpdate}
+                  />
                 </ul>
                 <span id="delete" className="text-danger">
                   <DeleteModal
