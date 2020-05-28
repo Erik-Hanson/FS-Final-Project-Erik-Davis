@@ -22,39 +22,75 @@ async function getQuote() {
   throw new Error(response.status);
 }
 
-class Home extends Component {
-  render() {
-    return (
-      <div>
-        <Async promiseFn={getQuote}>
-          {({ data, error, loading }) => {
-            if (loading) return <p>Loading</p>;
-            if (error) return <p>Error Message: ${error.message}</p>;
-            if (data) {
-              return (
-                <div className="bg-dark">
-                  <blockquote className="blockquote">
-                    <p className="display-4 text-light pt-4 pl-2">
-                      {data.content}
-                    </p>
-                    <footer className="blockquote-footer text-light pl-4">
-                      {data.originator.name}
-                    </footer>
-                  </blockquote>
 
-                  <div className="text-center mt-4">
-                    <Link to="/notes">
-                      <button className="btn btn-primary">Go To Notes</button>
-                    </Link>
-                  </div>
+const Home = ({ authUser }) => (
+  <>{authUser ? <HomeAuth /> : <HomeNonAuth />}</>
+);
+
+const HomeAuth = () => {
+  return (
+    <div>
+      <Async promiseFn={getQuote}>
+        {({ data, error, loading }) => {
+          if (loading) return <p>Loading</p>;
+          if (error) return <p>Error Message: ${error.message}</p>;
+          if (data) {
+            return (
+              <div className="bg-dark">
+                <blockquote className="blockquote">
+                  <p className="display-4 text-light pt-4 pl-2">
+                    {data.content}
+                  </p>
+                  <footer className="blockquote-footer text-light pl-4">
+                    {data.originator.name}
+                  </footer>
+                </blockquote>
+
+                <div className="text-center mt-4">
+                  <Link to="/notes">
+                    <button className="btn btn-primary">Go To Notes</button>
+                  </Link>
                 </div>
-              );
-            }
-          }}
-        </Async>
-      </div>
-    );
-  }
+              </div>
+            );
+          }
+        }}
+      </Async>
+    </div>
+  );
+}
+
+const HomeNonAuth = () => {
+  return (
+    <div>
+      <Async promiseFn={getQuote}>
+        {({ data, error, loading }) => {
+          if (loading) return <p>Loading</p>;
+          if (error) return <p>Error Message: ${error.message}</p>;
+          if (data) {
+            return (
+              <div className="bg-dark">
+                <blockquote className="blockquote">
+                  <p className="display-4 text-light pt-4 pl-2">
+                    {data.content}
+                  </p>
+                  <footer className="blockquote-footer text-light pl-4">
+                    {data.originator.name}
+                  </footer>
+                </blockquote>
+
+                <div className="text-center mt-4">
+                  <Link to="/signin">
+                    <button className="btn btn-primary">Go To Sign In</button>
+                  </Link>
+                </div>
+              </div>
+            );
+          }
+        }}
+      </Async>
+    </div>
+  );
 }
 
 export default Home;
