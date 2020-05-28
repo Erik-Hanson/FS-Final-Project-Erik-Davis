@@ -189,15 +189,26 @@ class Firebase {
     return newNotes;
   };
 
-  editNote = (title, text, category, noteId) => {
+  editNote = async (title, text, date, category, noteId, dispatch) => {
     const uid = this.auth.currentUser.uid;
 
-    this.db.collection(uid).doc("Notes").collection("all").doc(noteId).set({
+    const newNote = {
       Title: title,
       Text: text,
-      // Date: date,
       Category: category,
-    });
+    };
+
+    if (date) {
+      newNote.Date = date;
+    }
+
+    await this.db
+      .collection(uid)
+      .doc("Notes")
+      .collection("all")
+      .doc(noteId)
+      .set(newNote);
+    dispatch(true);
   };
 }
 

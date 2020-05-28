@@ -31,6 +31,7 @@ const CreateItem = (props) => {
 
   const submitNote = (event) => {
     event.preventDefault();
+    console.log(date);
     props.firebase.addNote(noteTitle, noteText, category, date);
     props.setUpdate(true);
     document.getElementById("Title").value = "";

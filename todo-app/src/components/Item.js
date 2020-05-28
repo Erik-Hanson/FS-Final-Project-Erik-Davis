@@ -6,15 +6,7 @@ import React, { useState } from "react";
 // import { withRouter, useHistory } from "react-router-dom";
 // import { withFirebase } from "./Firebase";
 import Datepicker from "react-date-picker";
-import {
-  Modal,
-  Button,
-  Accordion,
-  Card,
-  Col,
-  Row,
-  Form,
-} from "react-bootstrap";
+import { Modal, Button, Accordion, Card, Form } from "react-bootstrap";
 
 //Modal for deleting
 const DeleteModal = (props) => {
@@ -59,7 +51,9 @@ const Edit = (props) => {
   const [noteText, setNoteText] = useState(props.note.Text);
   const [noteTitle, setNoteTitle] = useState(props.note.Title);
   const [category, setCategory] = useState(props.note.Category);
-  const [date, setDate] = useState(props.note.date);
+  // const [date, setDate] = useState(props.date);
+  const [pickerDate, setPickerDate] = useState(props.dateObj);
+
   //const [note, setNote] = useState(props.note);
 
   const toggleEdit = () => {
@@ -71,10 +65,20 @@ const Edit = (props) => {
   };
 
   const submitEdit = async () => {
-    await props.firebase.editNote(noteTitle, noteText, category, props.note.id);
+    await props.firebase.editNote(
+      noteTitle,
+      noteText,
+      pickerDate,
+      category,
+      props.note.id,
+      props.updateNotes
+    );
     toggleEdit();
-    props.updateNotes(true);
   };
+
+  // const changeDate = (newDate) => {
+  //   setDate(newDate);
+  // };
 
   if (editMode === true) {
     return (
@@ -106,18 +110,19 @@ const Edit = (props) => {
               defaultValue={props.note.Category}
             />
           </li>
-          {/* {props.date && ( */}
           <li>
             <span className="font-weight-bold">Due Date:</span>
             {/* {props.date} */}
-            {/* <div className="text-center"> */}
-            {/* <span className="bg-light border-0">
-            <Datepicker onChange={changeDate} value={date} />
-            <span class="glyphicon glyphicon-calendar"></span>
-          </span> */}
-            {/* </div> */}
+            <div className="text-center">
+              <span className="bg-light border-0">
+                <Datepicker
+                  onChange={(e) => setPickerDate(e)}
+                  value={pickerDate}
+                />
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+            </div>
           </li>
-          {/* )} */}
           <span id="edit" className="text-success mr-2">
             <Button variant="primary" className="btn" onClick={toggleEdit}>
               <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -165,52 +170,111 @@ const Item = (props) => {
     props.setUpdate(true);
   };
 
-  return props.allNotes.map((note) => {
-    let date;
-    if (note.Date)
-      date =
-        note.Date.toDate().getUTCMonth() +
-        1 +
-        "/" +
-        note.Date.toDate().getUTCDate();
-    return (
-      <Accordion>
-        <li
-          key={note.id}
-          className="text-center list-group-item text-capitalize"
-        >
-          <div className="border border-secondary my-2">
-            <Accordion.Toggle
-              className="text-center"
-              as={Card.Header}
-              eventKey={note.id}
-            >
-              {note.Title}
-            </Accordion.Toggle>
-            <Accordion.Collapse eventKey={note.id}>
-              <div>
-                <ul className="text-left pt-2">
-                  <Edit
-                    note={note}
-                    date={date}
-                    firebase={props.firebase}
-                    updateNotes={props.setUpdate}
-                  />
-                </ul>
-                <span id="delete" className="text-danger">
-                  <DeleteModal
-                    function={deleteNote}
-                    noteId={note.id}
-                    note={note}
-                  />
-                </span>
-              </div>
-            </Accordion.Collapse>
-          </div>
-        </li>
-      </Accordion>
-    );
-  });
+  return (
+    <Accordion>
+      {props.allNotes.map((note) => {
+        let date;
+        let dateObj;
+        if (typeof note.Date != "string" && note.Date) {
+          console.log(typeof note.Date);
+          date =
+            note.Date.toDate().getUTCMonth() +
+            1 +
+            "/" +
+            note.Date.toDate().getUTCDate() +
+            "/" +
+            note.Date.toDate().getUTCFullYear();
+          dateObj = note.Date.toDate();
+        }
+        return (
+          <li
+            key={note.id}
+            className="text-center list-group-item text-capitalize"
+          >
+            <div className="border border-secondary my-2">
+              <Accordion.Toggle
+                className="text-center"
+                as={Card.Header}
+                eventKey={note.id}
+              >
+                {note.Title}
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey={note.id}>
+                <div>
+                  <ul className="text-left pt-2">
+                    <Edit
+                      note={note}
+                      date={date}
+                      dateObj={dateObj}
+                      firebase={props.firebase}
+                      updateNotes={props.setUpdate}
+                    />
+                  </ul>
+                  <span id="delete" className="text-danger">
+                    <DeleteModal
+                      function={deleteNote}
+                      noteId={note.id}
+                      note={note}
+                    />
+                  </span>
+                </div>
+              </Accordion.Collapse>
+            </div>
+          </li>
+        );
+      })}
+    </Accordion>
+  );
+
+  // return;
+  // props.allNotes.map((note) => {
+  //   let date;
+  //   let dateObj;
+  //   if (typeof note.Date != "string" && note.Date) {
+  //     console.log(typeof note.Date);
+  //     date =
+  //       note.Date.toDate().getUTCMonth() +
+  //       1 +
+  //       "/" +
+  //       note.Date.toDate().getUTCDate() +
+  //       "/" +
+  //       note.Date.toDate().getUTCFullYear();
+  //     dateObj = note.Date.toDate();
+  //   }
+  // return (
+  //   <li key={note.id} className="text-center list-group-item text-capitalize">
+  //     <div className="border border-secondary my-2">
+  //       <Accordion.Toggle
+  //         className="text-center"
+  //         as={Card.Header}
+  //         eventKey={note.id}
+  //       >
+  //         {note.Title}
+  //       </Accordion.Toggle>
+  //       <Accordion.Collapse eventKey={note.id}>
+  //         <div>
+  //           <ul className="text-left pt-2">
+  //             <Edit
+  //               note={note}
+  //               date={date}
+  //               dateObj={dateObj}
+  //               firebase={props.firebase}
+  //               updateNotes={props.setUpdate}
+  //             />
+  //           </ul>
+  //           <span id="delete" className="text-danger">
+  //             <DeleteModal
+  //               function={deleteNote}
+  //               noteId={note.id}
+  //               note={note}
+  //             />
+  //           </span>
+  //         </div>
+  //       </Accordion.Collapse>
+  //     </div>
+  //   </li>
+  // );
+  // });
 };
 
 export default Item;
