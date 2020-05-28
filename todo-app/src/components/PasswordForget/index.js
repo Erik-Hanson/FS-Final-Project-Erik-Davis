@@ -26,7 +26,7 @@ class PWForgetFormBase extends Component {
     const { email } = this.state;
 
     this.props.firebase
-      .ExecutePWReset(email)
+      .executePWReset(email)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
       })

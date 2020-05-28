@@ -80,7 +80,7 @@ const Restore = (props) => {
 };
 
 const Trash = ({ authUser }) => {
-  return <div id="auth">{authUser ? <TrashAuth /> : <TrashNonAuth />}</div>;
+  return <div id="auth">{authUser ? <TrashAuth /> : <></>}></div>;
 };
 
 const TrashList = () => {
@@ -154,10 +154,6 @@ const TrashListBase = (props) => {
 
 const TrashAuth = () => {
   return <TrashList />;
-};
-
-const TrashNonAuth = () => {
-  return <p>hi</p>;
 };
 
 const TrashListWrapped = withRouter(withFirebase(TrashListBase));
