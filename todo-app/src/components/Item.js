@@ -148,9 +148,11 @@ const Edit = (props) => {
           {props.note.Category}
         </li>
         {/* {props.date && ( */}
-        <li>
-          <span className="font-weight-bold">Due Date:</span> {props.date}
-        </li>
+        {props.note.Date &&
+          <li>
+            <span className="font-weight-bold">Date:</span> {props.date}
+          </li>
+        }
         {/* )} */}
         <span id="edit" className="text-success mr-2">
           <Button variant="primary" className="btn" onClick={toggleEdit}>
