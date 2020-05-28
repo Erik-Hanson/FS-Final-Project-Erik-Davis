@@ -6,14 +6,14 @@ import "../App.css"; // Import CSS
 //import Navigation from "./Navigation";
 
 const Notes = ({ authUser }) => (
-  <div>{authUser ? <NotesAuth /> : <NotesNonAuth />}</div>
+  <>{authUser ? <NotesAuth /> : <NotesNonAuth />}</>
 );
 
 const NotesAuth = () => (
   // Below lies the backbone for the notes page, this should eventually be made into
   // its own component as we are probably going to use this file for routing since
   // we will have multiple pages
-  <body className="bg-dark">
+  <div className="bg-dark">
     <h1 className="display-1 text-center text-light pt-4">To Do App</h1>
     <div className="container">
       <div className="row">
@@ -26,14 +26,14 @@ const NotesAuth = () => (
     <footer className="font-weight-bold text-center text-light my-4">
       Created By: Erik Hanson and Davis Giang
     </footer>
-  </body>
+  </div>
 );
 
 const NotesNonAuth = () => (
   // Below lies the backbone for the notes page, this should eventually be made into
   // its own component as we are probably going to use this file for routing since
   // we will have multiple pages
-  <body className="bg-dark">
+  <div className="bg-dark">
     <h1 className="display-1 text-center text-light pt-4">To Do App</h1>
     <div className="container">
       <h1 className="text-light text-center">
@@ -43,7 +43,7 @@ const NotesNonAuth = () => (
     <footer className="font-weight-bold text-center text-light my-4">
       Created By: Erik Hanson and Davis Giang
     </footer>
-  </body>
+  </div>
 );
 
 export default Notes;

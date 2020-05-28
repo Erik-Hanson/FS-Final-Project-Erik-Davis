@@ -14,25 +14,6 @@ const config = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
-// const fire = firebase.initializeApp(config);
-// firebase.firestore();
-// firebase.auth();
-
-// export const executeCreateUserWithEmailAndPassword = (email, password) =>
-//   fire.auth.createUserWithEmailAndPassword(email, password);
-
-// export const executeSignInWithEmailAndPassword = (email, password) =>
-//   fire.auth.signInWithEmailAndPassword(email, password);
-
-// export const executeSignOut = () => fire.auth.signOut();
-
-// export const executerPWUpdate = (password) =>
-//   fire.auth.currentUser.updatePassword(password);
-
-// export const executePWUpdate = (password) => fire.auth.updatePassword(password);
-
-// export default firebase;
-
 class Firebase {
   constructor() {
     firebase.initializeApp(config);
@@ -54,18 +35,6 @@ class Firebase {
 
   executePWUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);
-
-  // getAllNotes = (uid) => this.db.collection(uid).doc("Notes").get();
-
-  // createNote = (uid) => this.db.collection(uid).doc("notes");
-
-  // getCategoryNotes = (uid, category) =>
-  //   this.db
-  //     .collection(uid)
-  //     .doc("Notes")
-  //     .collection("all")
-  //     .get()
-  //     .where("category" === category);
 
   // add user
   addUserToFirestore = (uid) => {
@@ -97,8 +66,6 @@ class Firebase {
         });
 
         dispatch(newNotes);
-        // console.log(newNotes);
-        // console.log("hi");
       });
 
     return newNotes;
@@ -107,12 +74,44 @@ class Firebase {
   moveNoteToTrash = (uid, note) => {
     const newNote = {
       Text: note.Text,
-      Date: note.Date,
+      Category: note.Category,
+      Title: note.Title,
+    };
+    if (note.Date) {
+      newNote.Date = note.Date;
+    }
+
+    this.db.collection(uid).doc("Notes").collection("trash").add(newNote);
+  };
+
+  restoreNote = async (note, noteId, dispatch) => {
+    const uid = this.auth.currentUser.uid;
+    const newNote = {
+      Text: note.Text,
       Category: note.Category,
       Title: note.Title,
     };
 
-    this.db.collection(uid).doc("Notes").collection("trash").add(newNote);
+    if (note.Date) {
+      newNote.Date = note.Date;
+    }
+
+    //restore notes
+    //delete from trash
+    await this.db
+      .collection(uid)
+      .doc("Notes")
+      .collection("all")
+      .add(newNote)
+      .then(
+        this.db
+          .collection(uid)
+          .doc("Notes")
+          .collection("trash")
+          .doc(noteId)
+          .delete()
+      )
+      .then(dispatch(true));
   };
 
   deleteNoteFromNotes = (uid, noteId) => {
@@ -125,22 +124,27 @@ class Firebase {
   };
 
   deletePermanent = async (uid, noteId, dispatch) => {
-    await this.db.collection(uid).doc("Notes").collection("trash").doc(noteId).delete();
+    await this.db
+      .collection(uid)
+      .doc("Notes")
+      .collection("trash")
+      .doc(noteId)
+      .delete();
     dispatch(true);
-  }
+  };
 
   deleteAllNotes = (notes, dispatch) => {
     notes.map((note) => {
-      this.deleteNote(this.auth.currentUser.uid, note.id, note)
+      this.deleteNote(this.auth.currentUser.uid, note.id, note);
       dispatch(true);
-    })
-  }
+    });
+  };
 
   deleteAllTrash = (notes, dispatch) => {
     notes.map((note) => {
-      this.deletePermanent(this.auth.currentUser.uid, note.id, dispatch)
-    })
-  }
+      this.deletePermanent(this.auth.currentUser.uid, note.id, dispatch);
+    });
+  };
 
   //add a note
   addNote = (title, text, category, date) => {
@@ -154,7 +158,7 @@ class Firebase {
     try {
       this.db.collection(uid).doc("Notes").collection("all").add(note);
     } catch (e) {
-      console.log("this is e ", e);
+      console.log("there's been an error adding notes: ", e);
     }
   };
 
@@ -177,16 +181,34 @@ class Firebase {
             ...note,
           };
 
-          //console.log(noteWithId);
           newNotes.push(noteWithId);
-          //console.log(newNotes);
         });
 
         dispatch(newNotes);
-        console.log(newNotes, "newNote");
-        console.log("hi");
       });
     return newNotes;
+  };
+
+  editNote = async (title, text, date, category, noteId, dispatch) => {
+    const uid = this.auth.currentUser.uid;
+
+    const newNote = {
+      Title: title,
+      Text: text,
+      Category: category,
+    };
+
+    if (date) {
+      newNote.Date = date;
+    }
+
+    await this.db
+      .collection(uid)
+      .doc("Notes")
+      .collection("all")
+      .doc(noteId)
+      .set(newNote);
+    dispatch(true);
   };
 }
 

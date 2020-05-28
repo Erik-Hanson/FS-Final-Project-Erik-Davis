@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./main.css";
-import { withFirebase } from '../Firebase';
-import * as ROUTE from '../constants/routes';
+import { withFirebase } from "../Firebase";
+import * as ROUTE from "../constants/routes";
 
 const PWForgetPage = () => (
   <div className="bg-dark" id="forgotpsswdPage">
@@ -11,7 +11,7 @@ const PWForgetPage = () => (
 );
 
 const INITIAL_STATE = {
-  email: '',
+  email: "",
   error: null,
 };
 
@@ -22,29 +22,29 @@ class PWForgetFormBase extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  onSubmit = event => {
+  onSubmit = (event) => {
     const { email } = this.state;
 
     this.props.firebase
-      .ExecutePWReset(email)
+      .executePWReset(email)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ error });
       });
 
     event.preventDefault();
   };
 
-  onChange = event => {
+  onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
     const { email, error } = this.state;
 
-    const isInvalid = email === '';
+    const isInvalid = email === "";
 
     return (
       <div className="container">
@@ -62,9 +62,11 @@ class PWForgetFormBase extends Component {
                   type="text"
                   placeholder="Email Address"
                 />
-                <button className="btn btn-success btn-block"
+                <button
+                  className="btn btn-success btn-block"
                   disabled={isInvalid}
-                  type="submit">
+                  type="submit"
+                >
                   Reset My Password
                 </button>
                 {error && <p>{error.message}</p>}
@@ -78,9 +80,9 @@ class PWForgetFormBase extends Component {
 }
 
 const PWForgetLink = () => (
-  <p>
-    <Link to={ROUTE.PW_FORGET}>Forgot Password?</Link>
-  </p>
+  <Link style={{ color: "red" }} to={ROUTE.PW_FORGET}>
+    Forgot Password?
+  </Link>
 );
 
 export default PWForgetPage;
