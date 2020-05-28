@@ -17,6 +17,7 @@ const NavigationAuth = () => (
         <Nav.Link href={ROUTE.HOME}>Home</Nav.Link>
         <Nav.Link href={ROUTE.NOTES}>Notes</Nav.Link>
         <Nav.Link href={ROUTE.TRASH}>Trash</Nav.Link>
+        <Nav.Link href={ROUTE.SEARCH}>Search</Nav.Link>
       </Nav>
       <SignOutButton />
     </Navbar>
