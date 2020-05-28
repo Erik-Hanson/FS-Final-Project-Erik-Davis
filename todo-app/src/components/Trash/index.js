@@ -8,10 +8,6 @@ import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
 import "./main.css";
 
-// const Restore = () => {
-//   return <RestoreWrapped />;
-// };
-
 const DeleteModal = (props) => {
   const [show, setShow] = useState(false);
 
@@ -99,12 +95,6 @@ const TrashListBase = (props) => {
     await props.firebase.fetchTrash(setNotes);
   }, [props.firebase]);
 
-  // const deleteNote = (e, noteIdToDelete) => {
-  //   e.preventDefault();
-  //   const uid = props.firebase.auth.currentUser.uid;
-  //   props.firebase.deletePermanent(uid, noteIdToDelete, setUpdate);
-  // };
-
   useEffect(() => {
     fetch();
     setUpdate(false);
@@ -171,12 +161,5 @@ const TrashNonAuth = () => {
 };
 
 const TrashListWrapped = withRouter(withFirebase(TrashListBase));
-// const RestoreWrapped = withRouter(withFirebase(Restore));
 
 export default Trash;
-
-// <button
-//   type="submit"
-//   className="btn btn-sm"
-//   onClick={(e) => deleteNote(e, note.id)}
-// ></button>

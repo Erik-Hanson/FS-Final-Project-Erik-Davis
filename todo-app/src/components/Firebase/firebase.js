@@ -74,10 +74,12 @@ class Firebase {
   moveNoteToTrash = (uid, note) => {
     const newNote = {
       Text: note.Text,
-      Date: note.Date,
       Category: note.Category,
       Title: note.Title,
     };
+    if (note.Date) {
+      newNote.Date = note.Date;
+    }
 
     this.db.collection(uid).doc("Notes").collection("trash").add(newNote);
   };
@@ -86,10 +88,13 @@ class Firebase {
     const uid = this.auth.currentUser.uid;
     const newNote = {
       Text: note.Text,
-      Date: note.Date,
       Category: note.Category,
       Title: note.Title,
     };
+
+    if (note.Date) {
+      newNote.Date = note.Date;
+    }
 
     //restore notes
     //delete from trash
