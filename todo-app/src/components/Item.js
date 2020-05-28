@@ -62,15 +62,6 @@ const Edit = (props) => {
   const [date, setDate] = useState(props.note.date);
   //const [note, setNote] = useState(props.note);
 
-  // const fetch = async () => {
-  //   await props.firebase.fetchNote(note.id, setNote);
-  // };
-
-  // useEffect(() => {
-  //   fetch();
-  //   setEdit(false);
-  // }, []);
-
   const toggleEdit = () => {
     if (editMode === true) {
       setEdit(false);
@@ -170,12 +161,8 @@ const Edit = (props) => {
 const Item = (props) => {
   const deleteNote = (noteIdToDelete, noteToDelete) => {
     const uid = props.firebase.auth.currentUser.uid;
-    props.firebase.deleteNote(
-      uid,
-      noteIdToDelete,
-      noteToDelete,
-      props.setUpdate
-    );
+    props.firebase.deleteNote(uid, noteIdToDelete, noteToDelete);
+    props.setUpdate(true);
   };
 
   return props.allNotes.map((note) => {

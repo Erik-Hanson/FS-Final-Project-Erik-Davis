@@ -31,7 +31,6 @@ class Home extends Component {
             if (loading) return <p>Loading</p>;
             if (error) return <p>Error Message: ${error.message}</p>;
             if (data) {
-              console.log(data);
               return (
                 <div className="bg-dark">
                   <blockquote className="blockquote">

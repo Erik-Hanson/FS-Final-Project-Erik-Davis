@@ -107,8 +107,6 @@ class Firebase {
           .delete()
       )
       .then(dispatch(true));
-
-    //set update to true
   };
 
   deleteNoteFromNotes = (uid, noteId) => {
