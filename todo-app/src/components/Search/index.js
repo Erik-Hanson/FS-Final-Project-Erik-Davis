@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { withFirebase } from "../Firebase";
-import { withRouter } from "react-router-dom";
-import { Container, Card, Form, FormControl, Button } from "react-bootstrap";
+import { Card, Form, FormControl, Button } from "react-bootstrap";
 
 const Search = (props) => {
   const [update, setUpdate] = useState(false);
@@ -12,15 +10,15 @@ const Search = (props) => {
     const newResults = [];
     props.notes.forEach((note) => {
       if (
-        note.Text.indexOf(keyword) != -1 ||
-        note.Title.indexOf(keyword) != -1 ||
-        note.Category.indexOf(keyword) != -1
+        note.Text.indexOf(keyword) !== -1 ||
+        note.Title.indexOf(keyword) !== -1 ||
+        note.Category.indexOf(keyword) !== -1
       ) {
         newResults.push(note);
       }
     });
     setResults(newResults);
-    if (results.length != 0) setUpdate(true);
+    if (results.length !== 0) setUpdate(true);
   };
 
   const clearSearch = () => {
