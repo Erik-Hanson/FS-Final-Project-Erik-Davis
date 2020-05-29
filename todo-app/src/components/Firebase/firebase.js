@@ -144,6 +144,7 @@ class Firebase {
     });
     */
 
+
     notes.forEach((note) => {
       this.deleteNote(this.auth.currentUser.uid, note.id, note);
       dispatch(true);
@@ -156,6 +157,7 @@ class Firebase {
       this.deletePermanent(this.auth.currentUser.uid, note.id, dispatch);
     });
     */
+
 
     notes.forEach((note) => {
       this.deletePermanent(this.auth.currentUser.uid, note.id, dispatch);
