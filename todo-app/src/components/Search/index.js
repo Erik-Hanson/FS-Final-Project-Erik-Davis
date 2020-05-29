@@ -18,7 +18,7 @@ const Search = (props) => {
       }
     });
     setResults(newResults);
-    if (results.length !== 0) setUpdate(true);
+    setUpdate(true);
   };
 
   const clearSearch = () => {
