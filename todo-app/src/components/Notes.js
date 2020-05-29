@@ -18,7 +18,6 @@ const NotesAuth = () => (
     <div className="container">
       <div className="row">
         <div className="col-10 mx-auto col-md-8 mt-4">
-          <h2 className="text-center text-light">Create To Do Item</h2>
           <ItemList />
         </div>
       </div>

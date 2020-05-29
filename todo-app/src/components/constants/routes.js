@@ -6,4 +6,3 @@ export const ACCOUNT = "/account";
 export const PW_FORGET = "/pw-forget";
 export const NOTES = "/notes";
 export const TRASH = "/trash";
-export const SEARCH = "/search";

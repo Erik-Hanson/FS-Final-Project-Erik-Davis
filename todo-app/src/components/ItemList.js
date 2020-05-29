@@ -10,6 +10,7 @@ import Item from "./Item";
 import CreateItem from "./CreateItem";
 import { withRouter } from "react-router-dom";
 import { withFirebase } from "./Firebase";
+import Search from "../components/Search";
 
 const ItemList = () => {
   return <ItemListWrapped />;
@@ -31,24 +32,16 @@ const ItemListBase = (props) => {
 
   return (
     <div>
+      <Search notes={notes} />
       <CreateItem setUpdate={setUpdate} firebase={props.firebase} />
-      <ul className="list-group my 3">
-        <h2 className="text-center text-light">Your List</h2>
-        <div className="card card-body bg-secondary">
-          <Item
-            allNotes={notes}
-            setUpdate={setUpdate}
-            firebase={props.firebase}
-          />
-          <button
-            type="button"
-            className="btn btn-danger btn-block mt-4"
-            onClick={() => props.firebase.deleteAllNotes(notes, setUpdate)}
-          >
-            Clear Your List
-          </button>
-        </div>
-      </ul>
+      <Item allNotes={notes} setUpdate={setUpdate} firebase={props.firebase} />
+      <button
+        type="button"
+        className="btn btn-danger btn-block mt-4"
+        onClick={() => props.firebase.deleteAllNotes(notes, setUpdate)}
+      >
+        Clear Your List
+      </button>
     </div>
   );
 };

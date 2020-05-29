@@ -13,7 +13,6 @@ import RegisterPage from "./components/SignUp";
 import SignInPage from "./components/SignIn";
 import PWForgetPage from "./components/PasswordForget";
 import Trash from "./components/Trash";
-import SearchPage from "./components/Search";
 
 import * as ROUTE from "./components/constants/routes";
 
@@ -50,9 +49,6 @@ class App extends Component {
             <Route path={ROUTE.REGISTER} component={RegisterPage}></Route>
             <Route path={ROUTE.SIGN_IN} component={SignInPage}></Route>
             <Route path={ROUTE.PW_FORGET} component={PWForgetPage}></Route>
-            <Route path={ROUTE.SEARCH}>
-              <SearchPage authUser={this.state.authUser} />
-            </Route>
             <Route path={ROUTE.TRASH}>
               <Trash authUser={this.state.authUser} />
             </Route>

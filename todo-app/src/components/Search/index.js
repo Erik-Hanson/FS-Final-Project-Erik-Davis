@@ -1,27 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import { withFirebase } from "../Firebase";
 import { withRouter } from "react-router-dom";
-import { Container, Card } from "react-bootstrap";
+import { Container, Card, Form, FormControl, Button } from "react-bootstrap";
 
-const SearchPage = ({ authUser }) => {
-  return <> {authUser ? <SearchPageWrapper /> : <></>} </>;
+const Search = (props) => {
+  const [update, setUpdate] = useState(false);
+  const [keyword, setKeyword] = useState("");
+  const [results, setResults] = useState([]);
+
+  const handleSearch = () => {
+    const newResults = [];
+    props.notes.forEach((note) => {
+      if (
+        note.Text.indexOf(keyword) != -1 ||
+        note.Title.indexOf(keyword) != -1 ||
+        note.Category.indexOf(keyword) != -1
+      ) {
+        newResults.push(note);
+      }
+    });
+    setResults(newResults);
+    setUpdate(true);
+  };
+
+  if (update) {
+    return (
+      <>
+        <Form inline className="justify-content-center">
+          <FormControl
+            type="text"
+            placeholder="Find in Notes"
+            className="mr-sm-2"
+            onChange={(e) => setKeyword(e.currentTarget.value)}
+          />
+          <Button onClick={handleSearch} variant="outline-info">
+            Search
+          </Button>
+        </Form>
+        <hr />
+        <Card bg="secondary">
+          <Card.Header as="h2" className="text-center text-white">
+            Search Results
+          </Card.Header>
+          <Card.Body></Card.Body>
+          <Card.Footer>Button here</Card.Footer>
+        </Card>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Form inline className="justify-content-center">
+          <FormControl
+            type="text"
+            placeholder="Find in Notes"
+            className="mr-sm-2"
+            onChange={(e) => setKeyword(e.currentTarget.value)}
+          />
+          <Button onClick={handleSearch} variant="outline-info">
+            Search
+          </Button>
+        </Form>
+      </>
+    );
+  }
 };
 
-const SearchPageBase = (props) => {
-  return (
-    <Container variant="dark" fluid="sm">
-      <Card bg="light">
-        <Card.Header as="h5" className="text-center">
-          Find in Notes
-        </Card.Header>
-        <Card.Body>
-          <p></p>
-        </Card.Body>
-      </Card>
-    </Container>
-  );
-};
+export default Search;
 
-const SearchPageWrapper = withRouter(withFirebase(SearchPageBase));
-
-export default SearchPage;
+//      <Button variant="outline-danger">Clear Search</Button>
