@@ -20,7 +20,12 @@ const Search = (props) => {
       }
     });
     setResults(newResults);
-    setUpdate(true);
+    if (results.length != 0) setUpdate(true);
+  };
+
+  const clearSearch = () => {
+    setResults([]);
+    setUpdate(false);
   };
 
   if (update) {
@@ -43,7 +48,11 @@ const Search = (props) => {
             Search Results
           </Card.Header>
           <Card.Body></Card.Body>
-          <Card.Footer>Button here</Card.Footer>
+          <Card.Footer>
+            <Button onClick={clearSearch} size="lg" block variant="danger">
+              Clear
+            </Button>
+          </Card.Footer>
         </Card>
       </>
     );
