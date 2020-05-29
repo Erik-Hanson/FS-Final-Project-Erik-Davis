@@ -17,9 +17,9 @@ const config = {
 class Firebase {
   constructor() {
     firebase.initializeApp(config);
-    //this.db = app.database();
     this.auth = firebase.auth();
     this.db = firebase.firestore();
+    this.googleProvider = new firebase.auth.GoogleAuthProvider();
   }
 
   // *** Auth API ***
@@ -35,6 +35,9 @@ class Firebase {
 
   executePWUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);
+
+  executeSignInWithGoogle = () =>
+    this.auth.signInWithPopup(this.googleProvider);
 
   // add user
   addUserToFirestore = (uid) => {
@@ -141,10 +144,10 @@ class Firebase {
     });
     */
 
-    notes.forEach(note => {
+    notes.forEach((note) => {
       this.deleteNote(this.auth.currentUser.uid, note.id, note);
       dispatch(true);
-    })
+    });
   };
 
   deleteAllTrash = (notes, dispatch) => {
@@ -154,9 +157,9 @@ class Firebase {
     });
     */
 
-    notes.forEach(note => {
+    notes.forEach((note) => {
       this.deletePermanent(this.auth.currentUser.uid, note.id, dispatch);
-    })
+    });
   };
 
   //add a note

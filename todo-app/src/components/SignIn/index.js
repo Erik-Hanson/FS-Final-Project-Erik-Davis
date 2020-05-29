@@ -4,12 +4,14 @@ import "./main.css"; // Import CSS
 import { RegisterLink } from "../SignUp";
 import { withFirebase } from "../Firebase";
 import { PWForgetLink } from "../PasswordForget";
+import { Form, Button } from "react-bootstrap";
 
 import * as ROUTE from "../constants/routes";
 
 const SignInPage = () => (
   <div className="bg-dark" id="signinPage">
     <SignInForm />
+    <SignInGoogle />
     <RegisterLink />
   </div>
 );
@@ -19,6 +21,45 @@ const INITIAL_STATE = {
   password: "",
   error: null,
 };
+
+class SignInGoogleBase extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null };
+  }
+
+  onSubmit = (event) => {
+    this.props.firebase
+      .executeSignInWithGoogle()
+      .then(() => {
+        this.setState({ error: null });
+        this.props.history.push(ROUTE.NOTES);
+      })
+      .catch((error) => {
+        this.setState({ error });
+      });
+    event.preventDefault();
+  };
+
+  render() {
+    const { error } = this.state;
+
+    return (
+      <Form className="text-center" onSubmit={this.onSubmit}>
+        <Button variant="danger" type="submit" className="mb-2">
+          Sign in with Google
+          <img
+            className="pl-2"
+            width="30px"
+            alt="Google sign-in"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+          />
+        </Button>
+        {error && <p>{error.message}</p>}
+      </Form>
+    );
+  }
+}
 
 class SignInFormBase extends Component {
   constructor(props) {
@@ -73,7 +114,11 @@ class SignInFormBase extends Component {
                   placeholder="Password"
                   onChange={this.onChange}
                 />
-                <button className="btn btn-success btn-block mb-4" disabled={isInvalid} type="submit">
+                <button
+                  className="btn btn-success btn-block mb-4"
+                  disabled={isInvalid}
+                  type="submit"
+                >
                   Sign In
                 </button>
                 {error && <p> {error.message}</p>}
@@ -90,7 +135,8 @@ class SignInFormBase extends Component {
 }
 
 const SignInForm = withRouter(withFirebase(SignInFormBase));
+const SignInGoogle = withRouter(withFirebase(SignInGoogleBase));
 
 export default SignInPage;
 
-export { SignInForm };
+export { SignInForm, SignInGoogle };

@@ -76,10 +76,6 @@ const Edit = (props) => {
     toggleEdit();
   };
 
-  // const changeDate = (newDate) => {
-  //   setDate(newDate);
-  // };
-
   if (editMode === true) {
     return (
       <>
@@ -173,110 +169,68 @@ const Item = (props) => {
   };
 
   return (
-    <Accordion>
-      {props.allNotes.map((note) => {
-        let date;
-        let dateObj;
-        if (typeof note.Date != "string" && note.Date) {
-          console.log(typeof note.Date);
-          date =
-            note.Date.toDate().getUTCMonth() +
-            1 +
-            "/" +
-            note.Date.toDate().getUTCDate() +
-            "/" +
-            note.Date.toDate().getUTCFullYear();
-          dateObj = note.Date.toDate();
-        }
-        return (
-          <li
-            key={note.id}
-            className="text-center list-group-item text-capitalize"
-          >
-            <div className="border border-secondary my-2">
-              <Accordion.Toggle
-                className="text-center"
-                as={Card.Header}
-                eventKey={note.id}
+    <Card bg="secondary">
+      <Card.Header as="h2" className="text-center text-white">
+        All your Notes
+      </Card.Header>
+      <Card.Body>
+        <Accordion>
+          {props.allNotes.map((note) => {
+            let date;
+            let dateObj;
+            if (typeof note.Date != "string" && note.Date) {
+              console.log(typeof note.Date);
+              date =
+                note.Date.toDate().getUTCMonth() +
+                1 +
+                "/" +
+                note.Date.toDate().getUTCDate() +
+                "/" +
+                note.Date.toDate().getUTCFullYear();
+              dateObj = note.Date.toDate();
+            }
+            return (
+              <li
+                key={note.id}
+                className="text-center list-group-item text-capitalize"
               >
-                {note.Title}
-              </Accordion.Toggle>
-              <Accordion.Collapse eventKey={note.id}>
-                <div>
-                  <ul className="text-left pt-2">
-                    <Edit
-                      note={note}
-                      date={date}
-                      dateObj={dateObj}
-                      firebase={props.firebase}
-                      updateNotes={props.setUpdate}
-                    />
-                  </ul>
-                  <span id="delete" className="text-danger">
-                    <DeleteModal
-                      function={deleteNote}
-                      noteId={note.id}
-                      note={note}
-                    />
-                  </span>
+                <div className="border border-secondary my-2">
+                  <Accordion.Toggle
+                    className="text-center"
+                    as={Card.Header}
+                    eventKey={note.id}
+                  >
+                    {note.Title}
+                  </Accordion.Toggle>
+                  <Accordion.Collapse eventKey={note.id}>
+                    <div>
+                      <ul className="text-left pt-2">
+                        <Edit
+                          note={note}
+                          date={date}
+                          dateObj={dateObj}
+                          firebase={props.firebase}
+                          updateNotes={props.setUpdate}
+                        />
+                      </ul>
+                      <span id="delete" className="text-danger">
+                        <DeleteModal
+                          function={deleteNote}
+                          noteId={note.id}
+                          note={note}
+                        />
+                      </span>
+                    </div>
+                  </Accordion.Collapse>
                 </div>
-              </Accordion.Collapse>
-            </div>
-          </li>
-        );
-      })}
-    </Accordion>
+              </li>
+            );
+          })}
+        </Accordion>
+      </Card.Body>
+      <Card.Footer>{props.clear}</Card.Footer>
+    </Card>
   );
-
-  // return;
-  // props.allNotes.map((note) => {
-  //   let date;
-  //   let dateObj;
-  //   if (typeof note.Date != "string" && note.Date) {
-  //     console.log(typeof note.Date);
-  //     date =
-  //       note.Date.toDate().getUTCMonth() +
-  //       1 +
-  //       "/" +
-  //       note.Date.toDate().getUTCDate() +
-  //       "/" +
-  //       note.Date.toDate().getUTCFullYear();
-  //     dateObj = note.Date.toDate();
-  //   }
-  // return (
-  //   <li key={note.id} className="text-center list-group-item text-capitalize">
-  //     <div className="border border-secondary my-2">
-  //       <Accordion.Toggle
-  //         className="text-center"
-  //         as={Card.Header}
-  //         eventKey={note.id}
-  //       >
-  //         {note.Title}
-  //       </Accordion.Toggle>
-  //       <Accordion.Collapse eventKey={note.id}>
-  //         <div>
-  //           <ul className="text-left pt-2">
-  //             <Edit
-  //               note={note}
-  //               date={date}
-  //               dateObj={dateObj}
-  //               firebase={props.firebase}
-  //               updateNotes={props.setUpdate}
-  //             />
-  //           </ul>
-  //           <span id="delete" className="text-danger">
-  //             <DeleteModal
-  //               function={deleteNote}
-  //               noteId={note.id}
-  //               note={note}
-  //             />
-  //           </span>
-  //         </div>
-  //       </Accordion.Collapse>
-  //     </div>
-  //   </li>
-  // );
-  // });
 };
 
 export default Item;

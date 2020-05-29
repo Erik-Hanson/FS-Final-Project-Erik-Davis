@@ -1,11 +1,7 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { withFirebase } from "../Firebase";
 import { withRouter } from "react-router-dom";
-import Accordion from "react-bootstrap/Accordion";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Modal from "react-bootstrap/Modal";
+import { Accordion, Card, Button, Container, Modal } from "react-bootstrap";
 import "./main.css";
 
 const DeleteModal = (props) => {
