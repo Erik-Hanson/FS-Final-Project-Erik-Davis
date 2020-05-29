@@ -21,6 +21,11 @@ const Search = (props) => {
     setUpdate(true);
   };
 
+  const clearSearch = () => {
+    setResults([]);
+    setUpdate(false);
+  };
+
   if (update) {
     return (
       <>
@@ -88,7 +93,9 @@ const Search = (props) => {
               })}
             </Accordion>
           </Card.Body>
-          <Card.Footer>Button here</Card.Footer>
+          <Card.Footer>            <Button onClick={clearSearch} size="lg" block variant="danger">
+              Clear
+            </Button></Card.Footer>
         </Card>
       </>
     );
