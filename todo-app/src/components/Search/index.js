@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { withFirebase } from "../Firebase";
-import { withRouter } from "react-router-dom";
-import { Container, Card, Form, FormControl, Button } from "react-bootstrap";
+import { Accordion, Card, Form, FormControl, Button } from "react-bootstrap";
 
 const Search = (props) => {
   const [update, setUpdate] = useState(false);
@@ -12,9 +10,9 @@ const Search = (props) => {
     const newResults = [];
     props.notes.forEach((note) => {
       if (
-        note.Text.indexOf(keyword) != -1 ||
-        note.Title.indexOf(keyword) != -1 ||
-        note.Category.indexOf(keyword) != -1
+        note.Text.indexOf(keyword) !== -1 ||
+        note.Title.indexOf(keyword) !== -1 ||
+        note.Category.indexOf(keyword) !== -1
       ) {
         newResults.push(note);
       }
@@ -42,7 +40,54 @@ const Search = (props) => {
           <Card.Header as="h2" className="text-center text-white">
             Search Results
           </Card.Header>
-          <Card.Body></Card.Body>
+          <Card.Body>
+            <Accordion>
+              {results.map((note) => {
+                let date;
+                let dateObj;
+                if (typeof note.Date != "string" && note.Date) {
+                  console.log(typeof note.Date);
+                  date =
+                    note.Date.toDate().getUTCMonth() +
+                    1 +
+                    "/" +
+                    note.Date.toDate().getUTCDate() +
+                    "/" +
+                    note.Date.toDate().getUTCFullYear();
+                  dateObj = note.Date.toDate();
+                }
+                return (
+                  <div className="border border-secondary bg-light my-2">
+                    <Accordion.Toggle
+                      className="text-center"
+                      as={Card.Header}
+                      eventKey={note.id}
+                    >
+                      {note.Title}
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey={note.id}>
+                      <>
+                        <li>
+                          <span className="font-weight-bold">Description:</span>{" "}
+                          {note.Text}
+                        </li>
+                        <li>
+                          <span className="font-weight-bold">Category:</span>{" "}
+                          {note.Category}
+                        </li>
+                        {/* {props.date && ( */}
+                        {note.Date &&
+                          <li>
+                            <span className="font-weight-bold">Date:</span> {date}
+                          </li>
+                        }
+                      </>
+                    </Accordion.Collapse>
+                  </div>
+                );
+              })}
+            </Accordion>
+          </Card.Body>
           <Card.Footer>Button here</Card.Footer>
         </Card>
       </>
@@ -67,5 +112,3 @@ const Search = (props) => {
 };
 
 export default Search;
-
-//      <Button variant="outline-danger">Clear Search</Button>
