@@ -52,7 +52,9 @@ class App extends Component {
             <Route path={ROUTE.TRASH}>
               <Trash authUser={this.state.authUser} />
             </Route>
-            <Route path={ROUTE.HOME} component={Home}></Route>
+            <Route path={ROUTE.HOME}>
+              <Home authUser={this.state.authUser} />
+            </Route>
           </Switch>
         </Router>
       </div>
