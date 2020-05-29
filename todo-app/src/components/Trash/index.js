@@ -100,6 +100,17 @@ const TrashListBase = (props) => {
     <Container className="bg-secondary mt-5 pt-4 pb-4">
       <Accordion>
         {notes.map((note) => {
+          let date;
+          if (typeof note.Date != "string" && note.Date) {
+            console.log(typeof note.Date);
+            date =
+              note.Date.toDate().getUTCMonth() +
+              1 +
+              "/" +
+              note.Date.toDate().getUTCDate() +
+              "/" +
+              note.Date.toDate().getUTCFullYear();
+          }
           return (
             <Card>
               <Accordion.Toggle
@@ -113,6 +124,9 @@ const TrashListBase = (props) => {
                 <Card.Body>
                   <div>Text: {note.Text}</div>
                   <div>Category: {note.Category}</div>
+                  {
+                    note.Date && <div>Date: {date}</div>
+                  }
                   <div>
                     <span id="delete" className="text-danger">
                       <DeleteModal

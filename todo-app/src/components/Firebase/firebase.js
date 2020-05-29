@@ -40,7 +40,7 @@ class Firebase {
   addUserToFirestore = (uid) => {
     const newNote = {
       Text: "This is your first Note",
-      Date: Date.now(),
+      Date: new Date(),
       Category: "",
       Title: "First Note",
     };
@@ -134,16 +134,29 @@ class Firebase {
   };
 
   deleteAllNotes = (notes, dispatch) => {
+    /*
     notes.map((note) => {
       this.deleteNote(this.auth.currentUser.uid, note.id, note);
       dispatch(true);
     });
+    */
+
+    notes.forEach(note => {
+      this.deleteNote(this.auth.currentUser.uid, note.id, note);
+      dispatch(true);
+    })
   };
 
   deleteAllTrash = (notes, dispatch) => {
+    /*
     notes.map((note) => {
       this.deletePermanent(this.auth.currentUser.uid, note.id, dispatch);
     });
+    */
+
+    notes.forEach(note => {
+      this.deletePermanent(this.auth.currentUser.uid, note.id, dispatch);
+    })
   };
 
   //add a note
