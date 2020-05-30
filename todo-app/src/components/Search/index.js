@@ -95,8 +95,9 @@ const Search = (props) => {
               })}
             </Accordion>
           </Card.Body>
-          <Card.Footer>            <Button onClick={clearSearch} size="lg" block variant="danger">
-            Clear
+          <Card.Footer>
+            <Button onClick={clearSearch} size="lg" block variant="danger">
+              Clear
             </Button></Card.Footer>
         </Card>
       </>

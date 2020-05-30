@@ -37,16 +37,6 @@ const ItemListBase = (props) => {
       {notes.length !== 0 &&
         <Item allNotes={notes} setUpdate={setUpdate} firebase={props.firebase} />
       }
-      {
-        /*
-      <button
-        type="button"
-        className="btn btn-danger btn-block mt-4"
-        onClick={() => props.firebase.deleteAllNotes(notes, setUpdate)}
-      >
-        Clear Your List
-      </button>
-      */}
     </div>
   );
 };

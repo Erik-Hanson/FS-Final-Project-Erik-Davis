@@ -23,7 +23,7 @@ const DeleteModal = (props) => {
 
   return (
     <>
-      <Button variant="danger" onClick={handleShow}>
+      <Button className="mb-2" variant="danger" onClick={handleShow}>
         <i className="fa fa-trash"></i>
       </Button>
       <Modal show={show} onHide={handleClose}>
@@ -149,7 +149,7 @@ const Edit = (props) => {
         </ul>
         {/* )} */}
         <span id="edit" className="text-success mr-2">
-          <Button variant="primary" className="btn" onClick={toggleEdit}>
+          <Button variant="primary" className="btn mb-2" onClick={toggleEdit}>
             <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
           </Button>
         </span>
