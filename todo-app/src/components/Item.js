@@ -7,6 +7,7 @@ import React, { useState } from "react";
 // import { withFirebase } from "./Firebase";
 import Datepicker from "react-date-picker";
 import { Modal, Button, Accordion, Card, Form } from "react-bootstrap";
+import "./Item.css";
 
 //Modal for deleting
 const DeleteModal = (props) => {
@@ -80,75 +81,72 @@ const Edit = (props) => {
     return (
       <>
         <Form>
-          <li>
-            <span className="font-weight-bold">Title:</span>{" "}
-            <input
-              type="text"
-              onChange={(e) => {
-                setNoteTitle(e.currentTarget.value);
-              }}
-              defaultValue={props.note.Title}
-            />
-          </li>
-          <li>
-            <span className="font-weight-bold">Description:</span>{" "}
-            <input
-              type="text"
-              onChange={(e) => setNoteText(e.currentTarget.value)}
-              defaultValue={props.note.Text}
-            />
-          </li>
-          <li>
-            <span className="font-weight-bold">Category:</span>{" "}
-            <input
-              type="text"
-              onChange={(e) => setCategory(e.currentTarget.value)}
-              defaultValue={props.note.Category}
-            />
-          </li>
-          <li>
-            <span className="font-weight-bold">Due Date:</span>
-            {/* {props.date} */}
-            <div className="text-center">
-              <span className="bg-light border-0">
+          <ul className="text-left pt-2">
+            <li>
+              <span className="font-weight-bold">Title:</span>{" "}
+              <input
+                type="text"
+                onChange={(e) => {
+                  setNoteTitle(e.currentTarget.value);
+                }}
+                defaultValue={props.note.Title}
+              />
+            </li>
+            <li>
+              <span className="font-weight-bold">Description:</span>{" "}
+              <input
+                type="text"
+                onChange={(e) => setNoteText(e.currentTarget.value)}
+                defaultValue={props.note.Text}
+              />
+            </li>
+            <li>
+              <span className="font-weight-bold">Category:</span>{" "}
+              <input
+                type="text"
+                onChange={(e) => setCategory(e.currentTarget.value)}
+                defaultValue={props.note.Category}
+              />
+            </li>
+            <li>
+              <span className="font-weight-bold">Due Date:</span>
+              {/* {props.date} */}
+              <span className="bg-light border-0 ml-2">
                 <Datepicker
                   onChange={(e) => setPickerDate(e)}
                   value={pickerDate}
                 />
                 <span class="glyphicon glyphicon-calendar"></span>
               </span>
-            </div>
-          </li>
-          <span id="edit" className="text-success mr-2">
-            <Button variant="primary" className="btn" onClick={toggleEdit}>
-              <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
-            </Button>
-          </span>
-          <div>
-            <Button variant="success" size="sm" onClick={submitEdit}>
+            </li>
+          </ul>
+          <span>
+            <Button className="my-2" variant="success" size="sm" onClick={submitEdit}>
               Confirm
             </Button>
-          </div>
+          </span>
         </Form>
       </>
     );
   } else {
     return (
       <>
-        <li>
-          <span className="font-weight-bold">Description:</span>{" "}
-          {props.note.Text}
-        </li>
-        <li>
-          <span className="font-weight-bold">Category:</span>{" "}
-          {props.note.Category}
-        </li>
-        {/* {props.date && ( */}
-        {props.note.Date &&
+        <ul className="text-left pt-2">
           <li>
-            <span className="font-weight-bold">Date:</span> {props.date}
+            <span className="font-weight-bold">Description:</span>{" "}
+            {props.note.Text}
           </li>
-        }
+          <li>
+            <span className="font-weight-bold">Category:</span>{" "}
+            {props.note.Category}
+          </li>
+          {/* {props.date && ( */}
+          {props.note.Date &&
+            <li>
+              <span className="font-weight-bold">Date:</span> {props.date}
+            </li>
+          }
+        </ul>
         {/* )} */}
         <span id="edit" className="text-success mr-2">
           <Button variant="primary" className="btn" onClick={toggleEdit}>
@@ -204,15 +202,15 @@ const Item = (props) => {
                   </Accordion.Toggle>
                   <Accordion.Collapse eventKey={note.id}>
                     <div>
-                      <ul className="text-left pt-2">
-                        <Edit
-                          note={note}
-                          date={date}
-                          dateObj={dateObj}
-                          firebase={props.firebase}
-                          updateNotes={props.setUpdate}
-                        />
-                      </ul>
+                      {/*<ul className="text-left pt-2">*/}
+                      <Edit
+                        note={note}
+                        date={date}
+                        dateObj={dateObj}
+                        firebase={props.firebase}
+                        updateNotes={props.setUpdate}
+                      />
+                      {/*</ul>*/}
                       <span id="delete" className="text-danger">
                         <DeleteModal
                           function={deleteNote}
