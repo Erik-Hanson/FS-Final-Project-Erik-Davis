@@ -34,7 +34,11 @@ const ItemListBase = (props) => {
     <div>
       <Search notes={notes} />
       <CreateItem setUpdate={setUpdate} firebase={props.firebase} />
-      <Item allNotes={notes} setUpdate={setUpdate} firebase={props.firebase} />
+      {notes.length !== 0 &&
+        <Item allNotes={notes} setUpdate={setUpdate} firebase={props.firebase} />
+      }
+      {
+        /*
       <button
         type="button"
         className="btn btn-danger btn-block mt-4"
@@ -42,6 +46,7 @@ const ItemListBase = (props) => {
       >
         Clear Your List
       </button>
+      */}
     </div>
   );
 };

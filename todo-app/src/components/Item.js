@@ -228,7 +228,16 @@ const Item = (props) => {
           })}
         </Accordion>
       </Card.Body>
-      <Card.Footer>{props.clear}</Card.Footer>
+      <Card.Footer>
+        {props.clear}
+        <button
+          type="button"
+          className="btn btn-danger btn-block mt-4"
+          onClick={() => props.firebase.deleteAllNotes(props.allNotes, props.setUpdate)}
+        >
+          Clear Your List
+      </button>
+      </Card.Footer>
     </Card>
   );
 };
