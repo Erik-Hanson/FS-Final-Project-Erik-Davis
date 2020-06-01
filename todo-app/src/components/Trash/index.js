@@ -4,9 +4,48 @@ import { withRouter } from "react-router-dom";
 import { Accordion, Card, Button, Container, Modal } from "react-bootstrap";
 import "./main.css";
 
+const ClearAllModal = (props) => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const clearAll = () => {
+    props.firebase.deleteAllTrash(props.notes, props.setUpdate);
+    handleClose();
+  };
+
+  return (
+    <>
+      <Button
+        type="button"
+        variant="danger"
+        className="btn-block mt-4"
+        onClick={handleShow}
+      >
+        Delete All
+      </Button>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Permanently delete all Notes (cannot be restored)
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            No
+          </Button>
+          <Button variant="primary" onClick={clearAll}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
+
 const DeleteModal = (props) => {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -53,8 +92,8 @@ const Restore = (props) => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Restore this Note
+      <Button variant="success" onClick={handleShow}>
+        Restore
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -122,13 +161,24 @@ const TrashListBase = (props) => {
               </Accordion.Toggle>
               <Accordion.Collapse eventKey={note.id}>
                 <Card.Body>
-                  <div>Text: {note.Text}</div>
-                  <div>Category: {note.Category}</div>
-                  {
-                    note.Date && <div>Date: {date}</div>
-                  }
-                  <div>
-                    <span id="delete" className="text-danger">
+                  <ul className="text-left pt-2">
+                    <li>
+                      <span className="font-weight-bold">Description:</span>{" "}
+                      {note.Text}
+                    </li>
+                    <li>
+                      <span className="font-weight-bold">Category:</span>{" "}
+                      {note.Category}
+                    </li>
+                    {note.Date && (
+                      <li>
+                        <span className="font-weight-bold">Date:</span> {date}
+                      </li>
+                    )}
+                  </ul>
+
+                  <div className="text-center">
+                    <span id="delete" className="text-danger pr-2">
                       <DeleteModal
                         firebase={props.firebase}
                         noteIdToDelete={note.id}
@@ -136,8 +186,6 @@ const TrashListBase = (props) => {
                         setUpdate={setUpdate}
                       />
                     </span>
-                  </div>
-                  <div>
                     <Restore
                       note={note}
                       noteId={note.id}
@@ -151,13 +199,12 @@ const TrashListBase = (props) => {
           );
         })}
       </Accordion>
-      <button
-        type="button"
-        className="btn btn-danger btn-block mt-4"
-        onClick={() => props.firebase.deleteAllTrash(notes, setUpdate)}
-      >
-        Clear Your Trash
-      </button>
+
+      <ClearAllModal
+        firebase={props.firebase}
+        notes={notes}
+        setUpdate={setUpdate}
+      />
     </Container>
   );
 };

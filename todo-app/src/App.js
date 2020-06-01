@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap import
 import { withFirebase } from "./components/Firebase";
 //import './App.css'; // Import CSS
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+//import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Navigation from "./components/Navigation/index";
 //import LandingPage from './components/Landing';
 import RegisterPage from "./components/SignUp";
