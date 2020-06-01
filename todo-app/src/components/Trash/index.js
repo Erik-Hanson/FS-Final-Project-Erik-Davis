@@ -18,7 +18,7 @@ const DeleteModal = (props) => {
 
   return (
     <>
-      <Button variant="danger" onClick={handleShow}>
+      <Button variant="danger my-2" onClick={handleShow}>
         <i className="fa fa-trash"></i>
       </Button>
 

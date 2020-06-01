@@ -72,20 +72,22 @@ const Search = (props) => {
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey={note.id}>
                       <>
-                        <li>
-                          <span className="font-weight-bold">Description:</span>{" "}
-                          {note.Text}
-                        </li>
-                        <li>
-                          <span className="font-weight-bold">Category:</span>{" "}
-                          {note.Category}
-                        </li>
-                        {/* {props.date && ( */}
-                        {note.Date &&
+                        <ul className="text-left pt-2">
                           <li>
-                            <span className="font-weight-bold">Date:</span> {date}
+                            <span className="font-weight-bold">Description:</span>{" "}
+                            {note.Text}
                           </li>
-                        }
+                          <li>
+                            <span className="font-weight-bold">Category:</span>{" "}
+                            {note.Category}
+                          </li>
+                          {/* {props.date && ( */}
+                          {note.Date &&
+                            <li>
+                              <span className="font-weight-bold">Date:</span> {date}
+                            </li>
+                          }
+                        </ul>
                       </>
                     </Accordion.Collapse>
                   </div>
@@ -93,7 +95,8 @@ const Search = (props) => {
               })}
             </Accordion>
           </Card.Body>
-          <Card.Footer>            <Button onClick={clearSearch} size="lg" block variant="danger">
+          <Card.Footer>
+            <Button onClick={clearSearch} size="lg" block variant="danger">
               Clear
             </Button></Card.Footer>
         </Card>

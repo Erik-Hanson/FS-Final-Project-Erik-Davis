@@ -2,17 +2,13 @@ import React from "react";
 
 import ItemList from "./ItemList";
 import "../App.css"; // Import CSS
-//import { FirebaseContext, withFirebase } from "./Firebase";
-//import Navigation from "./Navigation";
 
 const Notes = ({ authUser }) => (
   <>{authUser ? <NotesAuth /> : <NotesNonAuth />}</>
 );
 
 const NotesAuth = () => (
-  // Below lies the backbone for the notes page, this should eventually be made into
-  // its own component as we are probably going to use this file for routing since
-  // we will have multiple pages
+  // Below lies the backbone for the notes page
   <div className="bg-dark">
     <h1 className="display-1 text-center text-light pt-4">To Do App</h1>
     <div className="container">
@@ -29,9 +25,7 @@ const NotesAuth = () => (
 );
 
 const NotesNonAuth = () => (
-  // Below lies the backbone for the notes page, this should eventually be made into
-  // its own component as we are probably going to use this file for routing since
-  // we will have multiple pages
+  // Below lies the backbone for the notes page
   <div className="bg-dark">
     <h1 className="display-1 text-center text-light pt-4">To Do App</h1>
     <div className="container">
