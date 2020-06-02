@@ -16,9 +16,10 @@ const DeleteAll = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const deleteAllModal = () => {
-    props.firebase.deleteAllNotes(props.notes, props.setUpdate);
+  const deleteAllModal = async () => {
+    await props.firebase.deleteAllNotes(props.notes, props.setUpdate);
     handleClose();
+    props.setUpdate(false);
   };
 
   return (
@@ -112,6 +113,7 @@ const Edit = (props) => {
       props.updateNotes
     );
     toggleEdit();
+    props.updateNotes(false);
   };
 
   if (editMode === true) {
@@ -119,7 +121,7 @@ const Edit = (props) => {
       <>
         <Form>
           <ul className="text-left pt-2">
-            <li>
+            <li className="pt-2">
               <span className="font-weight-bold">Title:</span>{" "}
               <input
                 type="text"
@@ -129,7 +131,7 @@ const Edit = (props) => {
                 defaultValue={props.note.Title}
               />
             </li>
-            <li>
+            <li className="pt-2">
               <span className="font-weight-bold">Description:</span>{" "}
               <input
                 type="text"
@@ -137,7 +139,7 @@ const Edit = (props) => {
                 defaultValue={props.note.Text}
               />
             </li>
-            <li>
+            <li className="pt-2">
               <span className="font-weight-bold">Category:</span>{" "}
               <input
                 type="text"
@@ -145,7 +147,7 @@ const Edit = (props) => {
                 defaultValue={props.note.Category}
               />
             </li>
-            <li>
+            <li className="pt-2">
               <span className="font-weight-bold">Due Date:</span>
               {/* {props.date} */}
               <span className="bg-light border-0 ml-2">
@@ -198,6 +200,13 @@ const Edit = (props) => {
           <Button variant="primary" className="btn mb-2" onClick={toggleEdit}>
             <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
           </Button>
+        </span>
+        <span id="delete" className="text-danger">
+          <DeleteModal
+            function={props.deleteNote}
+            noteId={props.note.id}
+            note={props.note}
+          />
         </span>
       </>
     );
@@ -255,15 +264,9 @@ const Item = (props) => {
                         dateObj={dateObj}
                         firebase={props.firebase}
                         updateNotes={props.setUpdate}
+                        deleteNote={deleteNote}
                       />
                       {/*</ul>*/}
-                      <span id="delete" className="text-danger">
-                        <DeleteModal
-                          function={deleteNote}
-                          noteId={note.id}
-                          note={note}
-                        />
-                      </span>
                     </div>
                   </Accordion.Collapse>
                 </div>
