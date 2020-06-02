@@ -135,79 +135,87 @@ const TrashListBase = (props) => {
     setUpdate(false);
   }, [fetch, update]);
 
-  return (
-    <Container className="bg-secondary mt-5 pt-4 pb-4">
-      <Accordion>
-        {notes.map((note) => {
-          let date;
-          if (typeof note.Date != "string" && note.Date) {
-            console.log(typeof note.Date);
-            date =
-              note.Date.toDate().getUTCMonth() +
-              1 +
-              "/" +
-              note.Date.toDate().getUTCDate() +
-              "/" +
-              note.Date.toDate().getUTCFullYear();
-          }
-          return (
-            <Card>
-              <Accordion.Toggle
-                className="text-center"
-                as={Card.Header}
-                eventKey={note.id}
-              >
-                {note.Title}
-              </Accordion.Toggle>
-              <Accordion.Collapse eventKey={note.id}>
-                <Card.Body>
-                  <ul className="text-left pt-2">
-                    <li>
-                      <span className="font-weight-bold">Description:</span>{" "}
-                      {note.Text}
-                    </li>
-                    <li>
-                      <span className="font-weight-bold">Category:</span>{" "}
-                      {note.Category}
-                    </li>
-                    {note.Date && (
+  if (notes.length !== 0) {
+    return (
+      <Container className="bg-secondary mt-5 pt-4 pb-4">
+        <Accordion>
+          {notes.map((note) => {
+            let date;
+            if (typeof note.Date != "string" && note.Date) {
+              console.log(typeof note.Date);
+              date =
+                note.Date.toDate().getUTCMonth() +
+                1 +
+                "/" +
+                note.Date.toDate().getUTCDate() +
+                "/" +
+                note.Date.toDate().getUTCFullYear();
+            }
+            return (
+              <Card>
+                <Accordion.Toggle
+                  className="text-center"
+                  as={Card.Header}
+                  eventKey={note.id}
+                >
+                  {note.Title}
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey={note.id}>
+                  <Card.Body>
+                    <ul className="text-left pt-2">
                       <li>
-                        <span className="font-weight-bold">Date:</span> {date}
+                        <span className="font-weight-bold">Description:</span>{" "}
+                        {note.Text}
                       </li>
-                    )}
-                  </ul>
+                      <li>
+                        <span className="font-weight-bold">Category:</span>{" "}
+                        {note.Category}
+                      </li>
+                      {note.Date && (
+                        <li>
+                          <span className="font-weight-bold">Date:</span> {date}
+                        </li>
+                      )}
+                    </ul>
 
-                  <div className="text-center">
-                    <span id="delete" className="text-danger pr-2">
-                      <DeleteModal
-                        firebase={props.firebase}
-                        noteIdToDelete={note.id}
+                    <div className="text-center">
+                      <span id="delete" className="text-danger pr-2">
+                        <DeleteModal
+                          firebase={props.firebase}
+                          noteIdToDelete={note.id}
+                          note={note}
+                          noteId={note.id}
+                          setUpdate={setUpdate}
+                        />
+                      </span>
+                      <Restore
                         note={note}
+                        noteId={note.id}
                         setUpdate={setUpdate}
+                        firebase={props.firebase}
                       />
-                    </span>
-                    <Restore
-                      note={note}
-                      noteId={note.id}
-                      setUpdate={setUpdate}
-                      firebase={props.firebase}
-                    />
-                  </div>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          );
-        })}
-      </Accordion>
+                    </div>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            );
+          })}
+        </Accordion>
+        <ClearAllModal
+          firebase={props.firebase}
+          notes={notes}
+          setUpdate={setUpdate}
+        />
+      </Container>
+    );
+  }
 
-      <ClearAllModal
-        firebase={props.firebase}
-        notes={notes}
-        setUpdate={setUpdate}
-      />
-    </Container>
-  );
-};
+  else {
+    return (
+      <h1 className="text-light h1 text-center">You have no notes in your trash</h1>
+    )
+  }
+}
 
 const TrashAuth = () => {
   return <TrashList />;

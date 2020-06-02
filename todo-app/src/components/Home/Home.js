@@ -28,6 +28,11 @@ const Home = ({ authUser }) => {
     throw new Error(response.status);
   }
 
+  // npm start will throw a warning about how there is a missing dependency
+  // and it should be included or the dependency array should be removed. This
+  // seems to be a false warning that is being raised. If data is included as a dependency
+  // more than one quote will be fetched from the API and likewise if the dependency
+  // array is removed. 
   useEffect(() => {
     getQuote();
     console.log("this is data", data);
@@ -48,17 +53,17 @@ const Home = ({ authUser }) => {
               <button className="btn btn-primary">Go To Notes</button>
             </Link>
           ) : (
-            <Link to="/signin">
-              <button className="btn btn-primary">Go To Sign In</button>
-            </Link>
-          )}
+              <Link to="/signin">
+                <button className="btn btn-primary">Go To Sign In</button>
+              </Link>
+            )}
         </div>
       </div>
     );
   } else {
     return (
       <div className="text-center" style={{ margin: "12.5%" }}>
-        <ScaleLoader height={100} width={20} color={"#007bff"} />
+        <ScaleLoader loading={isLoading} height={100} width={20} color={"#007bff"} />
       </div>
     );
   }
