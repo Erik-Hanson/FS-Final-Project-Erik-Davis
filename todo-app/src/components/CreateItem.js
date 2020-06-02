@@ -29,6 +29,13 @@ const CreateItem = (props) => {
     setCategory(newCategory);
   };
 
+  const cleanUp = () => {
+    setNoteText("");
+    setNoteTitle("");
+    setCategory("");
+    setDate(new Date());
+  };
+
   const submitNote = (event) => {
     event.preventDefault();
 
@@ -38,6 +45,7 @@ const CreateItem = (props) => {
       document.getElementById("Title").value = "";
       document.getElementById("Category").value = "";
       document.getElementById("Text").value = "";
+      cleanUp();
     }
   };
 
