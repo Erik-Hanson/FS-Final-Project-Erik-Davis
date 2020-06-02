@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Accordion, Card, Form, FormControl, Button } from "react-bootstrap";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const Search = (props) => {
   const [update, setUpdate] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [results, setResults] = useState([]);
-  const [loading, setLoad] = useState(false);
 
   const handleSearch = () => {
     if (keyword !== "") {
@@ -60,7 +58,6 @@ const Search = (props) => {
             <Accordion>
               {results.map((note) => {
                 let date;
-                let dateObj;
                 if (typeof note.Date != "string" && note.Date) {
                   console.log(typeof note.Date);
                   date =
@@ -70,7 +67,6 @@ const Search = (props) => {
                     note.Date.toDate().getUTCDate() +
                     "/" +
                     note.Date.toDate().getUTCFullYear();
-                  dateObj = note.Date.toDate();
                 }
                 return (
                   <div className="border border-secondary bg-light my-2">

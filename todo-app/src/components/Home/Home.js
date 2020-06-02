@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Async } from "react-async";
 import { Link } from "react-router-dom";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
