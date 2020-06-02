@@ -39,7 +39,7 @@ const CreateItem = (props) => {
   const submitNote = (event) => {
     event.preventDefault();
 
-    if (noteTitle !== "" || noteText !== "" || category !== "") {
+    if (noteTitle !== "") {
       props.firebase.addNote(noteTitle, noteText, category, date);
       props.setUpdate(true);
       document.getElementById("Title").value = "";
@@ -60,7 +60,7 @@ const CreateItem = (props) => {
               id="Title"
               name="itemText"
               className="form-control form-control-lg"
-              placeholder="Title"
+              placeholder="Title (Required)"
               onChange={(e) => changeTitle(e.currentTarget.value)}
             />
           </div>
