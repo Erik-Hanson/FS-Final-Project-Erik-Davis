@@ -9,6 +9,43 @@ import Datepicker from "react-date-picker";
 import { Modal, Button, Accordion, Card, Form } from "react-bootstrap";
 import "./Item.css";
 
+//Clear All Modal
+const DeleteAll = (props) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const deleteAllModal = () => {
+    props.firebase.deleteAllNotes(props.notes, props.setUpdate);
+    handleClose();
+  };
+
+  return (
+    <>
+      <Button className="btn-block mt-4" variant="danger" onClick={handleShow}>
+        Delete All
+      </Button>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Delete all Notes (You can restore them from your trash)
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            No
+          </Button>
+          <Button variant="primary" onClick={deleteAllModal}>
+            Yes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
+
 //Modal for deleting
 const DeleteModal = (props) => {
   const [show, setShow] = useState(false);
@@ -121,7 +158,12 @@ const Edit = (props) => {
             </li>
           </ul>
           <span>
-            <Button className="my-2" variant="success" size="sm" onClick={submitEdit}>
+            <Button
+              className="my-2"
+              variant="success"
+              size="sm"
+              onClick={submitEdit}
+            >
               Confirm
             </Button>
           </span>
@@ -141,11 +183,11 @@ const Edit = (props) => {
             {props.note.Category}
           </li>
           {/* {props.date && ( */}
-          {props.note.Date &&
+          {props.note.Date && (
             <li>
               <span className="font-weight-bold">Date:</span> {props.date}
             </li>
-          }
+          )}
         </ul>
         {/* )} */}
         <span id="edit" className="text-success mr-2">
@@ -227,14 +269,11 @@ const Item = (props) => {
         </Accordion>
       </Card.Body>
       <Card.Footer>
-        {props.clear}
-        <button
-          type="button"
-          className="btn btn-danger btn-block mt-4"
-          onClick={() => props.firebase.deleteAllNotes(props.allNotes, props.setUpdate)}
-        >
-          Clear Your List
-      </button>
+        <DeleteAll
+          firebase={props.firebase}
+          notes={props.allNotes}
+          setUpdate={props.setUpdate}
+        />
       </Card.Footer>
     </Card>
   );
