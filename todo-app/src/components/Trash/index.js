@@ -96,70 +96,77 @@ const TrashListBase = (props) => {
     setUpdate(false);
   }, [fetch, update]);
 
-  return (
-    <Container className="bg-secondary mt-5 pt-4 pb-4">
-      <Accordion>
-        {notes.map((note) => {
-          let date;
-          if (typeof note.Date != "string" && note.Date) {
-            console.log(typeof note.Date);
-            date =
-              note.Date.toDate().getUTCMonth() +
-              1 +
-              "/" +
-              note.Date.toDate().getUTCDate() +
-              "/" +
-              note.Date.toDate().getUTCFullYear();
-          }
-          return (
-            <Card>
-              <Accordion.Toggle
-                className="text-center"
-                as={Card.Header}
-                eventKey={note.id}
-              >
-                {note.Title}
-              </Accordion.Toggle>
-              <Accordion.Collapse eventKey={note.id}>
-                <Card.Body>
-                  <div>Text: {note.Text}</div>
-                  <div>Category: {note.Category}</div>
-                  {
-                    note.Date && <div>Date: {date}</div>
-                  }
-                  <div>
-                    <span id="delete" className="text-danger">
-                      <DeleteModal
-                        firebase={props.firebase}
-                        noteIdToDelete={note.id}
+  if (notes.length !== 0) {
+    return (
+      <Container className="bg-secondary mt-5 pt-4 pb-4">
+        <Accordion>
+          {notes.map((note) => {
+            let date;
+            if (typeof note.Date != "string" && note.Date) {
+              console.log(typeof note.Date);
+              date =
+                note.Date.toDate().getUTCMonth() +
+                1 +
+                "/" +
+                note.Date.toDate().getUTCDate() +
+                "/" +
+                note.Date.toDate().getUTCFullYear();
+            }
+            return (
+              <Card>
+                <Accordion.Toggle
+                  className="text-center"
+                  as={Card.Header}
+                  eventKey={note.id}
+                >
+                  {note.Title}
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey={note.id}>
+                  <Card.Body>
+                    <div>Text: {note.Text}</div>
+                    <div>Category: {note.Category}</div>
+                    {
+                      note.Date && <div>Date: {date}</div>
+                    }
+                    <div>
+                      <span id="delete" className="text-danger">
+                        <DeleteModal
+                          firebase={props.firebase}
+                          noteIdToDelete={note.id}
+                          note={note}
+                          setUpdate={setUpdate}
+                        />
+                      </span>
+                    </div>
+                    <div>
+                      <Restore
                         note={note}
+                        noteId={note.id}
                         setUpdate={setUpdate}
+                        firebase={props.firebase}
                       />
-                    </span>
-                  </div>
-                  <div>
-                    <Restore
-                      note={note}
-                      noteId={note.id}
-                      setUpdate={setUpdate}
-                      firebase={props.firebase}
-                    />
-                  </div>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          );
-        })}
-      </Accordion>
-      <button
-        type="button"
-        className="btn btn-danger btn-block mt-4"
-        onClick={() => props.firebase.deleteAllTrash(notes, setUpdate)}
-      >
-        Clear Your Trash
+                    </div>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            );
+          })}
+        </Accordion>
+        <button
+          type="button"
+          className="btn btn-danger btn-block mt-4"
+          onClick={() => props.firebase.deleteAllTrash(notes, setUpdate)}
+        >
+          Clear Your Trash
       </button>
-    </Container>
-  );
+      </Container>
+    );
+  }
+
+  else
+    return (
+      <h1 className="text-light h1 text-center">You have no notes in your trash</h1>
+    )
 };
 
 const TrashAuth = () => {
