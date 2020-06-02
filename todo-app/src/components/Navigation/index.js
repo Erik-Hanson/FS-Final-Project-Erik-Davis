@@ -1,5 +1,6 @@
 import React from "react";
 // import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SignOutButton from "../SignOut/index";
 import "./main.css";
 import * as ROUTE from "../constants/routes";
@@ -12,11 +13,22 @@ const Navigation = ({ authUser }) => (
 const NavigationAuth = () => (
   <>
     <Navbar bg="dark" variant="dark">
-      <Navbar.Brand href={ROUTE.NOTES}>To do</Navbar.Brand>
+      <Navbar.Brand href={ROUTE.HOME}>To do</Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Link href={ROUTE.HOME}>Home</Nav.Link>
-        <Nav.Link href={ROUTE.NOTES}>Notes</Nav.Link>
-        <Nav.Link href={ROUTE.TRASH}>Trash</Nav.Link>
+        <Nav.Item>
+          <Nav.Link as={Link} to={ROUTE.HOME}>
+            Home
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link as={Link} to={ROUTE.NOTES}>
+            Notes
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item></Nav.Item>
+        <Nav.Link as={Link} to={ROUTE.TRASH}>
+          Trash
+        </Nav.Link>
       </Nav>
       <SignOutButton />
     </Navbar>
@@ -26,11 +38,17 @@ const NavigationAuth = () => (
 const NavigationNonAuth = () => (
   <>
     <Navbar bg="dark" variant="dark">
-      <Navbar.Brand href={ROUTE.NOTES}>To do</Navbar.Brand>
+      <Navbar.Brand href={ROUTE.HOME}>To do</Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Link href={ROUTE.HOME}>Home</Nav.Link>
-        <Nav.Link href={ROUTE.SIGN_IN}>Sign In</Nav.Link>
-        <Nav.Link href={ROUTE.REGISTER}>Register</Nav.Link>
+        <Nav.Link as={Link} to={ROUTE.HOME}>
+          Home
+        </Nav.Link>
+        <Nav.Link as={Link} to={ROUTE.SIGN_IN}>
+          Sign In
+        </Nav.Link>
+        <Nav.Link as={Link} to={ROUTE.REGISTER}>
+          Register
+        </Nav.Link>
       </Nav>
     </Navbar>
   </>
