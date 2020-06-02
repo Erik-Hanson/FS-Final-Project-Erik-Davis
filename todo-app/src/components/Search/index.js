@@ -16,6 +16,8 @@ const Search = (props) => {
 
   const handleSearch = () => {
     if (keyword !== "") {
+      setResults([]);
+      setUpdate(false);
       const newResults = [];
       props.notes.forEach((note) => {
         if (
@@ -99,16 +101,20 @@ const Search = (props) => {
                     <Accordion.Collapse eventKey={note.id}>
                       <>
                         <ul className="text-left pt-2">
-                          <li>
-                            <span className="font-weight-bold">
-                              Description:
+                          {note.Text &&
+                            <li>
+                              <span className="font-weight-bold">
+                                Description:
                             </span>{" "}
-                            {note.Text}
-                          </li>
-                          <li>
-                            <span className="font-weight-bold">Category:</span>{" "}
-                            {note.Category}
-                          </li>
+                              {note.Text}
+                            </li>
+                          }
+                          {note.Category &&
+                            <li>
+                              <span className="font-weight-bold">Category:</span>{" "}
+                              {note.Category}
+                            </li>
+                          }
                           {/* {props.date && ( */}
                           {note.Date && (
                             <li>

@@ -164,14 +164,18 @@ const TrashListBase = (props) => {
                 <Accordion.Collapse eventKey={note.id}>
                   <Card.Body>
                     <ul className="text-left pt-2">
-                      <li>
-                        <span className="font-weight-bold">Description:</span>{" "}
-                        {note.Text}
-                      </li>
-                      <li>
-                        <span className="font-weight-bold">Category:</span>{" "}
-                        {note.Category}
-                      </li>
+                      {note.Text &&
+                        <li>
+                          <span className="font-weight-bold">Description:</span>{" "}
+                          {note.Text}
+                        </li>
+                      }
+                      {note.Category &&
+                        <li>
+                          <span className="font-weight-bold">Category:</span>{" "}
+                          {note.Category}
+                        </li>
+                      }
                       {note.Date && (
                         <li>
                           <span className="font-weight-bold">Date:</span> {date}

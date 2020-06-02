@@ -176,14 +176,18 @@ const Edit = (props) => {
     return (
       <>
         <ul className="text-left pt-2">
-          <li>
-            <span className="font-weight-bold">Description:</span>{" "}
-            {props.note.Text}
-          </li>
-          <li>
-            <span className="font-weight-bold">Category:</span>{" "}
-            {props.note.Category}
-          </li>
+          {props.note.Text &&
+            <li>
+              <span className="font-weight-bold">Description:</span>{" "}
+              {props.note.Text}
+            </li>
+          }
+          {props.note.Category &&
+            <li>
+              <span className="font-weight-bold">Category:</span>{" "}
+              {props.note.Category}
+            </li>
+          }
           {/* {props.date && ( */}
           {props.note.Date && (
             <li>
