@@ -1,24 +1,34 @@
 import React, { useState } from "react";
 import { Accordion, Card, Form, FormControl, Button } from "react-bootstrap";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Search = (props) => {
   const [update, setUpdate] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [results, setResults] = useState([]);
+  const [loading, setLoad] = useState(false);
 
   const handleSearch = () => {
-    const newResults = [];
-    props.notes.forEach((note) => {
-      if (
-        note.Text.indexOf(keyword) !== -1 ||
-        note.Title.indexOf(keyword) !== -1 ||
-        note.Category.indexOf(keyword) !== -1
-      ) {
-        newResults.push(note);
-      }
-    });
-    setResults(newResults);
-    setUpdate(true);
+    if (keyword !== "") {
+      const newResults = [];
+      props.notes.forEach((note) => {
+        if (
+          note.Text.indexOf(keyword) !== -1 ||
+          note.Title.indexOf(keyword) !== -1 ||
+          note.Category.indexOf(keyword) !== -1
+        ) {
+          newResults.push(note);
+        }
+      });
+      setResults(newResults);
+      cleanUp();
+      setUpdate(true);
+    }
+  };
+
+  const cleanUp = () => {
+    document.getElementById("searchBar").value = "";
+    setKeyword("");
   };
 
   const clearSearch = () => {
@@ -33,6 +43,7 @@ const Search = (props) => {
           <FormControl
             type="text"
             placeholder="Find in Notes"
+            id="searchBar"
             className="mr-sm-2"
             onChange={(e) => setKeyword(e.currentTarget.value)}
           />
@@ -74,7 +85,9 @@ const Search = (props) => {
                       <>
                         <ul className="text-left pt-2">
                           <li>
-                            <span className="font-weight-bold">Description:</span>{" "}
+                            <span className="font-weight-bold">
+                              Description:
+                            </span>{" "}
                             {note.Text}
                           </li>
                           <li>
@@ -82,11 +95,12 @@ const Search = (props) => {
                             {note.Category}
                           </li>
                           {/* {props.date && ( */}
-                          {note.Date &&
+                          {note.Date && (
                             <li>
-                              <span className="font-weight-bold">Date:</span> {date}
+                              <span className="font-weight-bold">Date:</span>{" "}
+                              {date}
                             </li>
-                          }
+                          )}
                         </ul>
                       </>
                     </Accordion.Collapse>
@@ -98,7 +112,8 @@ const Search = (props) => {
           <Card.Footer>
             <Button onClick={clearSearch} size="lg" block variant="danger">
               Clear
-            </Button></Card.Footer>
+            </Button>
+          </Card.Footer>
         </Card>
       </>
     );
@@ -108,6 +123,7 @@ const Search = (props) => {
         <Form inline className="justify-content-center">
           <FormControl
             type="text"
+            id="searchBar"
             placeholder="Find in Notes"
             className="mr-sm-2"
             onChange={(e) => setKeyword(e.currentTarget.value)}

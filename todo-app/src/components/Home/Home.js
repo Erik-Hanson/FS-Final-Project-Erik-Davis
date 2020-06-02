@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Async } from "react-async";
 import { Link } from "react-router-dom";
-import Spinner from "react-bootstrap/Spinner";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const Home = ({ authUser }) => {
   const [isLoading, setLoad] = useState(true);
@@ -34,12 +34,6 @@ const Home = ({ authUser }) => {
     console.log("this is data", data);
   }, []);
 
-  // return (
-  //   <div className="text-center">
-  //     {isLoading && <Spinner animation="border" variant="light" />}
-  //   </div>
-  // );
-
   if (data) {
     return (
       <div className="bg-dark">
@@ -64,43 +58,11 @@ const Home = ({ authUser }) => {
     );
   } else {
     return (
-      <div className="text-center">
-        {isLoading && <Spinner animation="border" variant="light" />}
+      <div className="text-center" style={{ margin: "12.5%" }}>
+        <ScaleLoader height={100} width={20} color={"#007bff"} />
       </div>
     );
   }
-
-  // <Async promiseFn={getQuote}>
-  //   {({ data, error, loading }) => {
-  //     //if (loading) return <p>loading</p>;
-  //     if (loading) setLoad(true);
-  //     if (error) return <p>Error Message: ${error.message}</p>;
-  //     if (data) {
-  //       return (
-  //         <div className="bg-dark">
-  //           <blockquote className="blockquote">
-  //             <p className="display-4 text-light pt-4 pl-2">{data.content}</p>
-  //             <footer className="blockquote-footer text-light pl-4">
-  //               {data.originator.name}
-  //             </footer>
-  //           </blockquote>
-
-  //           <div className="text-center mt-4">
-  //             {authUser ? (
-  //               <Link to="/notes">
-  //                 <button className="btn btn-primary">Go To Notes</button>
-  //               </Link>
-  //             ) : (
-  //               <Link to="/signin">
-  //                 <button className="btn btn-primary">Go To Sign In</button>
-  //               </Link>
-  //             )}
-  //           </div>
-  //         </div>
-  //       );
-  //     }
-  //   }}
-  // </Async>;
 };
 
 export default Home;
