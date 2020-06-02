@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import "./main.css";
 import { withFirebase } from "../Firebase";
 import * as ROUTE from "../constants/routes";
+import { SignInGoogle } from "../SignIn";
 
 const INITIAL_STATE = {
   username: "",
@@ -107,6 +108,9 @@ class RegisterFormBase extends Component {
                 </button>
                 {error && <p>{error.message}</p>}
               </form>
+              <div class="pt-3">
+                <SignInGoogle />
+              </div>
             </div>
           </div>
         </div>

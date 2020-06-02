@@ -11,7 +11,6 @@ import * as ROUTE from "../constants/routes";
 const SignInPage = () => (
   <div className="bg-dark" id="signinPage">
     <SignInForm />
-    <SignInGoogle />
     <RegisterLink />
   </div>
 );
@@ -46,7 +45,7 @@ class SignInGoogleBase extends Component {
 
     return (
       <Form className="text-center" onSubmit={this.onSubmit}>
-        <Button variant="danger" type="submit" className="mb-2">
+        <Button variant="danger" type="submit" className="mb-2" block>
           Sign in with Google
           <img
             className="pl-2"
@@ -123,6 +122,10 @@ class SignInFormBase extends Component {
                 </button>
                 {error && <p> {error.message}</p>}
               </form>
+              <div>
+                <SignInGoogle />
+              </div>
+
               <div className="text-center">
                 <PWForgetLink />
               </div>
