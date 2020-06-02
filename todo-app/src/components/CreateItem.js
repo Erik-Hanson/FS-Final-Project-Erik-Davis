@@ -29,14 +29,24 @@ const CreateItem = (props) => {
     setCategory(newCategory);
   };
 
+  const cleanUp = () => {
+    setNoteText("");
+    setNoteTitle("");
+    setCategory("");
+    setDate(new Date());
+  };
+
   const submitNote = (event) => {
     event.preventDefault();
-    console.log(date);
-    props.firebase.addNote(noteTitle, noteText, category, date);
-    props.setUpdate(true);
-    document.getElementById("Title").value = "";
-    document.getElementById("Category").value = "";
-    document.getElementById("Text").value = "";
+
+    if (noteTitle !== "") {
+      props.firebase.addNote(noteTitle, noteText, category, date);
+      props.setUpdate(true);
+      document.getElementById("Title").value = "";
+      document.getElementById("Category").value = "";
+      document.getElementById("Text").value = "";
+      cleanUp();
+    }
   };
 
   return (
@@ -50,7 +60,7 @@ const CreateItem = (props) => {
               id="Title"
               name="itemText"
               className="form-control form-control-lg"
-              placeholder="Title"
+              placeholder="Title (Required)"
               onChange={(e) => changeTitle(e.currentTarget.value)}
             />
           </div>

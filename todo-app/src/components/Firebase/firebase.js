@@ -144,7 +144,6 @@ class Firebase {
     });
     */
 
-
     notes.forEach((note) => {
       this.deleteNote(this.auth.currentUser.uid, note.id, note);
       dispatch(true);
@@ -152,16 +151,16 @@ class Firebase {
   };
 
   deleteAllTrash = (notes, dispatch) => {
-    /*
-    notes.map((note) => {
-      this.deletePermanent(this.auth.currentUser.uid, note.id, dispatch);
-    });
-    */
-
-
+    const uid = this.auth.currentUser.uid;
     notes.forEach((note) => {
-      this.deletePermanent(this.auth.currentUser.uid, note.id, dispatch);
+      this.db
+        .collection(uid)
+        .doc("Notes")
+        .collection("trash")
+        .doc(note.id)
+        .delete();
     });
+    dispatch(true);
   };
 
   //add a note
