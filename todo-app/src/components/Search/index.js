@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { Accordion, Card, Form, FormControl, Button } from "react-bootstrap";
+import {
+  Alert,
+  Accordion,
+  Card,
+  Form,
+  FormControl,
+  Button,
+} from "react-bootstrap";
 
 const Search = (props) => {
   const [update, setUpdate] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [results, setResults] = useState([]);
+  const [showAlert, setShow] = useState(false);
 
   const handleSearch = () => {
     if (keyword !== "") {
@@ -18,9 +26,14 @@ const Search = (props) => {
           newResults.push(note);
         }
       });
-      setResults(newResults);
-      cleanUp();
-      setUpdate(true);
+
+      if (newResults.length !== 0) {
+        setResults(newResults);
+        setUpdate(true);
+        cleanUp();
+      } else {
+        setShow(true);
+      }
     }
   };
 
@@ -31,7 +44,13 @@ const Search = (props) => {
 
   const clearSearch = () => {
     setResults([]);
+    setKeyword("");
     setUpdate(false);
+  };
+
+  const handleClose = () => {
+    setShow(false);
+    setKeyword("");
   };
 
   if (update) {
@@ -112,6 +131,18 @@ const Search = (props) => {
           </Card.Footer>
         </Card>
       </>
+    );
+  } else if (showAlert === true) {
+    return (
+      <Alert
+        variant="warning"
+        className="text-dark"
+        onClick={() => handleClose()}
+        dismissible
+      >
+        <Alert.Heading>No Results</Alert.Heading>
+        <p>Did not find any notes for "{keyword}"</p>
+      </Alert>
     );
   } else {
     return (

@@ -9,9 +9,10 @@ const ClearAllModal = (props) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const clearAll = () => {
-    props.firebase.deleteAllTrash(props.notes, props.setUpdate);
+  const clearAll = async () => {
+    await props.firebase.deleteAllTrash(props.notes, props.setUpdate);
     handleClose();
+    props.setUpdate(false);
   };
 
   return (
@@ -208,14 +209,14 @@ const TrashListBase = (props) => {
         />
       </Container>
     );
-  }
-
-  else {
+  } else {
     return (
-      <h1 className="text-light h1 text-center">You have no notes in your trash</h1>
-    )
+      <h1 className="text-light h1 text-center">
+        You have no notes in your trash
+      </h1>
+    );
   }
-}
+};
 
 const TrashAuth = () => {
   return <TrashList />;
