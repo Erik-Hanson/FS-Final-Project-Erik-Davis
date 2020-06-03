@@ -14,7 +14,7 @@ const NavigationAuth = () => (
   <>
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand as={Link} to={ROUTE.HOME}>
-        To do
+        WorkSet
       </Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Item>

@@ -10,7 +10,7 @@ const Notes = ({ authUser }) => (
 const NotesAuth = () => (
   // Below lies the backbone for the notes page
   <div className="bg-dark">
-    <h1 className="display-1 text-center text-light pt-4">To Do App</h1>
+    <h1 className="display-1 text-center text-light pt-4">WorkSet</h1>
     <div className="container">
       <div className="row">
         <div className="col-10 mx-auto col-md-8 mt-4">
@@ -27,7 +27,7 @@ const NotesAuth = () => (
 const NotesNonAuth = () => (
   // Below lies the backbone for the notes page
   <div className="bg-dark">
-    <h1 className="display-1 text-center text-light pt-4">To Do App</h1>
+    <h1 className="display-1 text-center text-light pt-4">WorkSet</h1>
     <div className="container">
       <h1 className="text-light text-center">
         Please sign-in to view and create notes
