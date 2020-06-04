@@ -116,7 +116,7 @@ const Restore = (props) => {
 };
 
 const Trash = ({ authUser }) => {
-  return <div id="auth">{authUser ? <TrashAuth /> : <></>}></div>;
+  return <div id="auth">{authUser ? <TrashAuth /> : <></>}</div>;
 };
 
 const TrashList = () => {
