@@ -14,7 +14,7 @@ const NavigationAuth = () => (
   <>
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand as={Link} to={ROUTE.HOME}>
-        To do
+        WorkSet
       </Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Item>
@@ -40,7 +40,7 @@ const NavigationAuth = () => (
 const NavigationNonAuth = () => (
   <>
     <Navbar bg="dark" variant="dark">
-      <Navbar.Brand href={ROUTE.HOME}>To do</Navbar.Brand>
+      <Navbar.Brand href={ROUTE.HOME}>WorkSet</Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Link as={Link} to={ROUTE.HOME}>
           Home

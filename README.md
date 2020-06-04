@@ -17,4 +17,4 @@
 
 ### Usage:
 
-If you wish to run our to do application locally you can clone this repo, then do an `npm install`, and then start the development server with `npm start`. It is not neccessary to do this to use our application, you may visit the site where it is deployed here: INSERT DEPLOYMENT URL
+If you wish to run our to do application locally you can clone this repo, then do an `npm install`, and then start the development server with `npm start`. It is not neccessary to do this to use our application, you may visit the site where it is deployed here: https://workset-57a3f.web.app/

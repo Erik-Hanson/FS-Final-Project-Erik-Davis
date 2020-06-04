@@ -20,10 +20,11 @@ const Search = (props) => {
       setUpdate(false);
       const newResults = [];
       props.notes.forEach((note) => {
+        console.log(note.Text.toUpperCase());
         if (
-          note.Text.indexOf(keyword) !== -1 ||
-          note.Title.indexOf(keyword) !== -1 ||
-          note.Category.indexOf(keyword) !== -1
+          note.Text.toUpperCase().indexOf(keyword.toUpperCase()) !== -1 ||
+          note.Title.toUpperCase().indexOf(keyword.toUpperCase()) !== -1 ||
+          note.Category.toUpperCase().indexOf(keyword.toUpperCase()) !== -1
         ) {
           newResults.push(note);
         }
@@ -92,7 +93,7 @@ const Search = (props) => {
                 return (
                   <div className="border border-secondary bg-light my-2">
                     <Accordion.Toggle
-                      className="text-center"
+                      className="text-center text-capitalize"
                       as={Card.Header}
                       eventKey={note.id}
                     >
